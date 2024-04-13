@@ -13,6 +13,10 @@ where T : MonoBehaviour
             if (_instance == null)
             {
                 _instance = GetComponent<T>();
+                if (_instance == null)
+                {
+                    Debug.LogError($"Error: no singleton component of type {typeof(T)} found in scene");
+                }
             }
             else
             {
