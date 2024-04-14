@@ -17,9 +17,9 @@ public class Spawner : MonoBehaviour, IDamageble, IBuilding, IPointerClickHandle
     private bool _canSpawn;
     //private List<Entity> _entitiesInSpawner;
 
-    public ReactiveProperty<int> CurrentResourceCount { get; private set; }
-    public ReactiveProperty<int> CurrentHealth { get; private set; }
-    public ReactiveProperty<float> CurrentTimeBeforeSpawn { get; private set; }
+    public ReactiveProperty<int> CurrentResourceCount { get; private set; } = new ReactiveProperty<int>();
+    public ReactiveProperty<int> CurrentHealth { get; private set; } = new ReactiveProperty<int>();
+    public ReactiveProperty<float> CurrentTimeBeforeSpawn { get; private set; } = new ReactiveProperty<float>();
 
     public Vector3 Waypoint => transform.position;
 
@@ -73,6 +73,11 @@ public class Spawner : MonoBehaviour, IDamageble, IBuilding, IPointerClickHandle
     private void Update()
     {
         if (_canSpawn == false)
+        {
+            return;
+        }
+
+        if (CurrentTimeBeforeSpawn == null)
         {
             return;
         }
