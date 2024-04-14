@@ -13,6 +13,7 @@ public class Merger : MonoBehaviour, IBuilding, IPointerClickHandler
 
     [SerializeField] private MergerConfigSO _config;
     [SerializeField] private Transform _entityContainer;
+    [SerializeField] private SpriteRenderer _selectedSprite;
 
     private Misc.KeyValuePair<UnitSO, int>[] _unitsInMerger;
 
@@ -26,6 +27,10 @@ public class Merger : MonoBehaviour, IBuilding, IPointerClickHandler
     public Transform CurrentTargetTransform { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
 
     public TeamEnum Team => _config.Team;
+
+    public SpriteRenderer SelectedSprite => _selectedSprite;
+
+    public bool IsEnoughResourcesToSpawn => CurrentResourceCount.Value >= _config.SpawnCostInResources;
 
     public event Action<IBuilding> Clicked;
     public event Action<IBuilding> Dead;
@@ -82,7 +87,7 @@ public class Merger : MonoBehaviour, IBuilding, IPointerClickHandler
     {
         Misc.KeyValuePair<UnitSO, int> keyValuePair = _unitsInMerger.FirstOrDefault(k => k.Key == unit.UnitSO);
 
-        if (keyValuePair.Key == null)
+        if (keyValuePair == default)
         {
             return;
         }
