@@ -9,6 +9,13 @@ public class AttackStrategyRange : AttackStrategyCompBase
         if (targetHealth.IsUnit)
         {
             CreateProjectile(projPrefab, targetHealth, damage);
+            return;
+        }
+
+        if (targetHealth.IsSpawner)
+        {
+            CreateProjectile(projPrefab, targetHealth, damage);
+            return;
         }
     }
 

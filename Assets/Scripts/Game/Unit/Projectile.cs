@@ -26,17 +26,20 @@ public class Projectile : MonoBehaviour
     private void OnCollisionEnter2D(Collision2D collision)
     {
         var unitComp = collision.gameObject.GetComponent<UnitComp>();
+        var spawnerComp = collision.gameObject.GetComponent<Spawner>();
         var targetHealth = collision.gameObject.GetComponent<HealthComp>();
         Debug.Log($"Collision: {collision.gameObject.name}, {gameObject.name}");
 
-        if (unitComp == null)
+        if (unitComp != null && unitComp.Team == _team ||
+            spawnerComp != null && spawnerComp.Team == _team ||
+            targetHealth == null)
         {
             gameObject.SetActive(false);
             Destroy(gameObject, 5f);
             return;
         }
 
-        if (unitComp.Team == _team)
+        if (spawnerComp != null && spawnerComp.Team == _team)
         {
             return;
         }
@@ -50,6 +53,17 @@ public class Projectile : MonoBehaviour
         {
             float newTargetHealth = targetHealth.Health.Value -
                 _damage * GlobalConfigHolder.Instance.GetDamageModifier(_senderUnitComp.UnitSO.UnitType, targetHealth.UnitComp.UnitSO.UnitType);
+            if (newTargetHealth < 0)
+            {
+                newTargetHealth = 0;
+            }
+            targetHealth.Health.Value = (int)newTargetHealth;
+            Debug.Log($"Damaged: {gameObject.name}, health: {targetHealth.Health.Value}");
+        }
+        else if (targetHealth.IsSpawner)
+        {
+            float newTargetHealth = targetHealth.Health.Value -
+                _damage * 1f;
             if (newTargetHealth < 0)
             {
                 newTargetHealth = 0;

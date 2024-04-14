@@ -113,11 +113,20 @@ public class Spawner : MonoBehaviour, IDamageble, IBuilding, IPointerClickHandle
 
         for (int i = 0; i < _config.EntitySpawnCountPerSpawn; i++)
         {
-            var entity = _unitFactory.Create(_entityContainer, transform.position + Vector3.right, _config.Team, _config.UnitToSpawn);
+            var teamContainer = _globalConfigHolder.GetTeamUnitsContaienr(_config.Team);
+            var entity = _unitFactory.Create(teamContainer, transform.position + Vector3.right, _config.Team, _config.UnitToSpawn);
+            _createdUnits.Add(entity);
+            entity.HealthComp.OnDied += HandleOnDied;
             var target = _levelInfoHolder.Waypoints.FirstOrDefault(_ => _.Sender.gameObject == gameObject)?.Target.transform;
 
             EntitySpawned?.Invoke(entity.gameObject);
         }
+    }
+
+    private void HandleOnDied(HealthComp comp)
+    {
+        comp.OnDied -= HandleOnDied;
+        _createdUnits.Remove(comp.UnitComp);
     }
 
     public void TakeDamage(int damage)
@@ -165,9 +174,9 @@ public class Spawner : MonoBehaviour, IDamageble, IBuilding, IPointerClickHandle
     public void MoveEntitiesToNewTarget(IBuilding target)
     {
         CurrentTarget = target;
-        foreach (Transform entityTransform in _entityContainer.transform)
+        for (int i = 0; i < _createdUnits.Count; i++)
         {
-            var unitComp = entityTransform.GetComponent<UnitComp>();
+            var unitComp = _createdUnits[i];
             if (CurrentTarget?.GetTransform() != null)
             {
                 unitComp.RemoveTarget(CurrentTarget?.GetTransform());
