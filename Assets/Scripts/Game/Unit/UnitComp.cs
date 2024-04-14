@@ -96,11 +96,11 @@ public class UnitComp : MonoBehaviour
             return;
         }
 
-        float veryClose = 0.01f;
+        float veryClose = 0.1f;
         if (Vector3.Distance(targetMerger.transform.position, transform.position) < veryClose)
         {
-            Debug.Log($"Unit {gameObject.name} came to merger {gameObject.name}");
-            targetMerger.AddEntity();
+            Debug.LogWarning($"Unit {gameObject.name} came to merger {gameObject.name}");
+            targetMerger.AddUnit(this);
         }
     }
 

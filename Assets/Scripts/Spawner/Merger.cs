@@ -27,7 +27,7 @@ public class Merger : MonoBehaviour, IBuilding, IPointerClickHandler
     public IBuilding CurrentTarget { get => _currentTarget; set => _currentTarget = value; }
     public Transform CurrentTargetTransform { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
 
-    public TeamEnum Team => throw new NotImplementedException();
+    public TeamEnum Team => _config.Team;
 
     public event Action<IBuilding> Clicked;
     public event Action<IBuilding> Dead;
@@ -42,6 +42,10 @@ public class Merger : MonoBehaviour, IBuilding, IPointerClickHandler
     {
         CurrentResourceCount = new(_config.MaxResourceCount);
         _unitsInMerger = _config.MergeReciptConfigSO.RecipeInfo.Input.Select(k => new Misc.KeyValuePair<UnitSO, int>(k)).ToArray();
+        
+        var target = LevelInfoHolder.Instance.Waypoints.FirstOrDefault(_ => _.Sender.gameObject == gameObject)?.Target.transform;
+        CurrentTarget = target.GetComponent<IBuilding>();
+        GetComponent<EntitiesInBuldingWaypointController>().SetMoveToBuilding(CurrentTarget);
     }
 
     private void TrySpawn()
@@ -69,12 +73,12 @@ public class Merger : MonoBehaviour, IBuilding, IPointerClickHandler
         for (int i = 0; i < _config.MergeReciptConfigSO.RecipeInfo.Output.Value; i++)
         {
             var entity = UnitFactory.Instance.Create(GlobalConfigHolder.Instance.PlayerEntitiesContainer, 
-                transform.position + Vector3.right / 4, 
+                transform.position + Vector3.right, 
                 Team,
                 _config.MergeReciptConfigSO.RecipeInfo.Output.Key);
             //_entitiesInMergerAfterMerge.Add(entity);
             EntitySpawned?.Invoke(entity.gameObject);
-        }
+        }    
     }
 
     public void AddUnit(UnitComp unit)

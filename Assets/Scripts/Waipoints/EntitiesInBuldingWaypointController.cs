@@ -74,8 +74,6 @@ public sealed class EntitiesInBuldingWaypointController : MonoBehaviour
 
     private void OnEnitySpawned(GameObject entity)
     {
-        Debug.Log("Spawned");
         entity.GetComponent<UnitComp>().AddTarget(_moveToBulding.GetTransform());
-        //entity.moveTo(_movetoBulding.Waypoint);
     }
 }

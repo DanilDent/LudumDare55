@@ -88,7 +88,7 @@ public class Spawner : MonoBehaviour, IDamageble, IBuilding, IPointerClickHandle
 
     public void StartSpawning()
     {
-        CurrentTimeBeforeSpawn.Value = _config.TimeToSpawn;
+        //CurrentTimeBeforeSpawn.Value = _config.TimeToSpawn;
         _canSpawn = true;
     }
 

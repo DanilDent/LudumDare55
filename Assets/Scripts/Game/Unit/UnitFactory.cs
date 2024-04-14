@@ -30,7 +30,7 @@ public class UnitFactory : MonoSingleton<UnitFactory>
 
     public void Destroy(UnitComp unit)
     {
-        gameObject.SetActive(false);
+        unit.gameObject.SetActive(false);
         _deadQueue.Enqueue(unit.GetComponent<UnitComp>());
     }
 
