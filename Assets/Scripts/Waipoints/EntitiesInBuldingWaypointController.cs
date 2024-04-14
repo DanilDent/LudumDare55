@@ -52,7 +52,6 @@ public sealed class EntitiesInBuldingWaypointController : MonoBehaviour
         {
             _moveToBulding = bulding;
             _startBulding.MoveEntitiesToNewTarget(bulding);
-            //_startBulding.MoveEntitiesToNewWaypoint(bulding.Waypoint);
         }
 
         _isStartBuldingSelected = false;

@@ -152,12 +152,6 @@ public class Spawner : MonoBehaviour, IDamageble, IBuilding, IPointerClickHandle
         Clicked?.Invoke(this);
     }
 
-    public void MoveEntitiesToNewWaypoint(Vector3 waypoint)
-    {
-
-        Debug.Log("Move from spawner");
-    }
-
     public Transform GetTransform()
     {
         return transform;

@@ -15,8 +15,6 @@ public class Merger : MonoBehaviour, IBuilding, IPointerClickHandler
     [SerializeField] private Transform _entityContainer;
 
     private Misc.KeyValuePair<UnitSO, int>[] _unitsInMerger;
-    //private List<Entity> _entitiesInMergerForMerge;
-    //private List<Entity> _entitiesInMergerAfterMerge
 
     public ReactiveProperty<int> CurrentResourceCount { get; private set; }
     public Vector3 Waypoint => transform.position;
@@ -76,7 +74,6 @@ public class Merger : MonoBehaviour, IBuilding, IPointerClickHandler
                 transform.position + Vector3.right, 
                 Team,
                 _config.MergeReciptConfigSO.RecipeInfo.Output.Key);
-            //_entitiesInMergerAfterMerge.Add(entity);
             EntitySpawned?.Invoke(entity.gameObject);
         }    
     }
@@ -115,11 +112,6 @@ public class Merger : MonoBehaviour, IBuilding, IPointerClickHandler
     public void OnPointerClick(PointerEventData eventData)
     {
         Clicked?.Invoke(this);
-    }
-
-    public void MoveEntitiesToNewWaypoint(Vector3 waypoint)
-    {
-        Debug.Log("Moving from merger");
     }
 
     public Transform GetTransform()

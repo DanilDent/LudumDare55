@@ -167,6 +167,7 @@ MonoBehaviour:
   _testEntityPrefab: {fileID: 8408134042164528422, guid: d1554af64a837854b8def1e6ae180909, type: 3}
   _config: {fileID: 11400000, guid: eb1784a1af50e394a86d115560a37865, type: 2}
   _entityContainer: {fileID: 7439895275466734234}
+  _healthComp: {fileID: 0}
 --- !u!61 &3377911993335366809
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -237,3 +238,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _debugHealth: 0
+  _isDead: 0
