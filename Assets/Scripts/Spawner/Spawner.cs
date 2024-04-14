@@ -7,13 +7,10 @@ using UnityEngine.EventSystems;
 
 public class Spawner : MonoBehaviour, IDamageble, IBuilding, IPointerClickHandler
 {
-    #region testing
-    [SerializeField] private GameObject _testEntityPrefab;
-    #endregion
 
     [SerializeField] private SpawnerConfigSO _config;
     [SerializeField] private Transform _entityContainer;
-    [SerializeField] private SpriteRenderer _selectedSprite;
+    [SerializeField] private Sprite _sprite;
 
     private bool _canSpawn;
     //private List<Entity> _entitiesInSpawner;
@@ -28,8 +25,6 @@ public class Spawner : MonoBehaviour, IDamageble, IBuilding, IPointerClickHandle
     public TeamEnum Team => _config.Team;
 
     private IBuilding _currentTarget;
-    public IBuilding CurrentTarget { get => _currentTarget; set => _currentTarget = value; }
-    public Transform CurrentTargetTransform { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
 
     public event Action<IBuilding> Clicked;
     public event Action<IBuilding> Dead;
@@ -40,13 +35,15 @@ public class Spawner : MonoBehaviour, IDamageble, IBuilding, IPointerClickHandle
     private LevelInfoHolder _levelInfoHolder;
 
     public HealthComp HealthComp => _healthComp;
-    public SpriteRenderer SelectedSprite => _selectedSprite;
+    public SpriteRenderer SelectedSprite { get; set; }
 
     [SerializeField] private HealthComp _healthComp;
 
     private List<UnitComp> _createdUnits = new List<UnitComp>();
 
     public bool IsEnoughResourcesToSpawn => CurrentResourceCount.Value >= _config.SpawnCostInResources;
+
+    public IBuilding CurrentTarget { get => _currentTarget; set => _currentTarget = value; }
 
     private void Start()
     {
@@ -68,6 +65,16 @@ public class Spawner : MonoBehaviour, IDamageble, IBuilding, IPointerClickHandle
         CurrentHealth = new(_config.SpawnerHealth);
         CurrentResourceCount = new(_config.MaxResourceCount);
         CurrentTimeBeforeSpawn = new(_config.TimeToSpawn);
+
+        var newGameObject = new GameObject();
+        newGameObject.transform.SetParent(transform);
+        newGameObject.SetActive(false);
+        newGameObject.transform.position = transform.position;
+        newGameObject.transform.localScale = new Vector3(.6f, .6f, 0);
+        var spriteRenderer = newGameObject.AddComponent<SpriteRenderer>();
+        spriteRenderer.sprite = _sprite;
+        spriteRenderer.sortingOrder = 3;
+        SelectedSprite = spriteRenderer;
     }
 
     private void OnDestroy()

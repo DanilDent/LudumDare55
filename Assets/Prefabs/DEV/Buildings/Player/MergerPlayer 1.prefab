@@ -29,7 +29,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.5, y: 0.5, z: 1}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 4032940686220369289}
@@ -48,9 +48,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 40b03fb33b1a77e4dbca6f1f27323064, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _testEntityPrefab: {fileID: 8408134042164528422, guid: d1554af64a837854b8def1e6ae180909, type: 3}
   _config: {fileID: 11400000, guid: dc884e93a54d0c2409aba4853576a66f, type: 2}
   _entityContainer: {fileID: 2245442992063856963}
+  _sprite: {fileID: 7482667652216324306, guid: 48e93eef0688c4a259cb0eddcd8661f7, type: 3}
 --- !u!61 &3872199653736167711
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -135,7 +135,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0.5, y: 0.5, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1691987187742561540}

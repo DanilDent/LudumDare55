@@ -52,10 +52,17 @@ public sealed class SelectedBuldingsShower : MonoBehaviour
             _firstBuldingSelected = true;
         }
 
-        _selected.SelectedSprite.color = Color.grey;
-        _selected.SelectedSprite.gameObject.SetActive(true);
-        _selectedTarget.SelectedSprite.color = Color.green;
-        _selectedTarget.SelectedSprite.gameObject.SetActive(true);
+        if (_selected.SelectedSprite != null)
+        {
+            _selected.SelectedSprite.color = Color.grey;
+            _selected.SelectedSprite.gameObject.SetActive(true);
+        }
+
+        if (_selectedTarget.SelectedSprite != null)
+        {
+            _selectedTarget.SelectedSprite.color = Color.green;
+            _selectedTarget.SelectedSprite.gameObject.SetActive(true);
+        }
     }
 
     private void OnBackClick()
