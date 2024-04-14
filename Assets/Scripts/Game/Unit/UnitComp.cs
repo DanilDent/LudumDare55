@@ -50,16 +50,8 @@ public class UnitComp : MonoBehaviour
 
     private void Update()
     {
-        if (_movementComp.TargetTransform == null)
-        {
-            _movementComp.SetTarget(CurrentTarget);
-            return;
-        }
-        if (_movementComp.TargetTransform.gameObject == null)
-        {
-            _movementComp.SetTarget(CurrentTarget);
-            return;
-        }
+        HandleMovementTarget();
+        PerformMergerProximityCheck();
     }
 
     public void Construct(TeamEnum team, UnitSO unitSO)
@@ -76,6 +68,40 @@ public class UnitComp : MonoBehaviour
         _combatAIComp.Construct(_unitSO);
 
         _healthComp.OnDied += HandleOnDied;
+    }
+
+    private void HandleMovementTarget()
+    {
+        if (_movementComp.TargetTransform == null)
+        {
+            _movementComp.SetTarget(CurrentTarget);
+            return;
+        }
+        if (_movementComp.TargetTransform.gameObject == null)
+        {
+            _movementComp.SetTarget(CurrentTarget);
+            return;
+        }
+    }
+
+    private void PerformMergerProximityCheck()
+    {
+        if (CurrentTarget == null)
+        {
+            return;
+        }
+
+        if (!CurrentTarget.TryGetComponent<Merger>(out var targetMerger))
+        {
+            return;
+        }
+
+        float veryClose = 0.01f;
+        if (Vector3.Distance(targetMerger.transform.position, transform.position) < veryClose)
+        {
+            Debug.Log($"Unit {gameObject.name} came to merger {gameObject.name}");
+            targetMerger.AddEntity();
+        }
     }
 
     private void HandleOnDied(HealthComp healthComp)
