@@ -333,9 +333,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _checkBoxForValidate: 0
   spawners:
-  - {fileID: 5016166991892333632}
   - {fileID: 4372570283664785174}
-  - {fileID: 0}
+  - {fileID: 4507078259759263472}
+  - {fileID: 5016166991892333632}
   - {fileID: 9064886410243505750}
 --- !u!1 &477702965
 GameObject:
@@ -31032,7 +31032,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5084974563075842025}
   m_Layer: 0
-  m_Name: Level
+  m_Name: TemplateLevel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
