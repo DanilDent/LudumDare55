@@ -1,5 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using Misc;
+using System;
 
 [Serializable]
 public class RecipeInfo

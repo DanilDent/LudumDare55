@@ -1,7 +1,7 @@
 ﻿using System;
 using UnityEngine;
 
-namespace CityBuilder
+namespace Misc
 {
     [Serializable]
     public struct KeyValuePair<TKey, TValue>
@@ -12,9 +12,9 @@ namespace CityBuilder
             _value = value;
         }
 
-        public TKey Key => _key;
+        public TKey Key { get => _key; set => _key = value; }
 
-        public TValue Value => _value;
+        public TValue Value { get => _value; set => _value = value; }
 
         [SerializeField] private TKey _key;
         [SerializeField] private TValue _value;
