@@ -10,6 +10,8 @@ public interface IBuilding
 
     public void InvokeDead(IBuilding building);
 
+    public bool IsEnoughResourcesToSpawn { get; }
+    public SpriteRenderer SelectedSprite { get; }
     public Membership Membership { get; }
     public TeamEnum Team { get; }
     public Vector3 Waypoint { get; }

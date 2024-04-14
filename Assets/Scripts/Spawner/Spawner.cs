@@ -13,6 +13,7 @@ public class Spawner : MonoBehaviour, IDamageble, IBuilding, IPointerClickHandle
 
     [SerializeField] private SpawnerConfigSO _config;
     [SerializeField] private Transform _entityContainer;
+    [SerializeField] private SpriteRenderer _selectedSprite;
 
     private bool _canSpawn;
     //private List<Entity> _entitiesInSpawner;
@@ -39,9 +40,13 @@ public class Spawner : MonoBehaviour, IDamageble, IBuilding, IPointerClickHandle
     private LevelInfoHolder _levelInfoHolder;
 
     public HealthComp HealthComp => _healthComp;
+    public SpriteRenderer SelectedSprite => _selectedSprite;
+
     [SerializeField] private HealthComp _healthComp;
 
     private List<UnitComp> _createdUnits = new List<UnitComp>();
+
+    public bool IsEnoughResourcesToSpawn => CurrentResourceCount.Value >= _config.SpawnCostInResources;
 
     private void Start()
     {
@@ -143,15 +148,21 @@ public class Spawner : MonoBehaviour, IDamageble, IBuilding, IPointerClickHandle
 
     public bool IsSelecteble()
     {
+        if (CurrentHealth.Value <= 0)
+        {
+            return false;
+        }
+
+        if (_config.Team == TeamEnum.Enemy)
+        {
+            return true;
+        }
+
         if (CurrentResourceCount.Value < _config.SpawnCostInResources)
         {
             return false;
         }
 
-        if (CurrentHealth.Value <= 0)
-        {
-            return false;
-        }
 
         if (_config.Membership == Membership.Player)
         {
