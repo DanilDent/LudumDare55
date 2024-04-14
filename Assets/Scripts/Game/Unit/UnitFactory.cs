@@ -44,7 +44,6 @@ public class UnitFactory : MonoSingleton<UnitFactory>
         {
             var deadUnit = _deadQueue.Dequeue();
             _createdUnits[deadUnit.Team].Remove(deadUnit);
-            deadUnit.IsDead = true;
             Destroy(deadUnit.gameObject, 5f);
         }
     }

@@ -21,23 +21,9 @@ public class UnitComp : MonoBehaviour
 
     private List<Transform> _targetsList = new List<Transform>();
     private UnitSO _unitSO;
-    private bool _isDead;
     public bool IsDead
     {
-        get => _isDead;
-        set
-        {
-            _isDead = value;
-            _healthComp.enabled = !_isDead;
-            _movementComp.enabled = !_isDead;
-            _combatAIComp.enabled = !_isDead;
-
-            if (_isDead)
-            {
-                transform.rotation = Quaternion.Euler(0f, 0f, 90f);
-                GetComponentInChildren<SpriteRenderer>().color = Color.black;
-            }
-        }
+        get => _healthComp.IsDead;
     }
 
     public Transform CurrentTarget => _targetsList.Count > 0 ? _targetsList[_targetsList.Count - 1] : null;
@@ -62,12 +48,12 @@ public class UnitComp : MonoBehaviour
 
     private void Update()
     {
-        if (_movementComp.TargetPosition == null)
+        if (_movementComp.TargetTransform == null)
         {
             _movementComp.SetTarget(CurrentTarget);
             return;
         }
-        if (_movementComp.TargetPosition.gameObject == null)
+        if (_movementComp.TargetTransform.gameObject == null)
         {
             _movementComp.SetTarget(CurrentTarget);
             return;
@@ -86,5 +72,22 @@ public class UnitComp : MonoBehaviour
         _healthComp.Construct(_unitSO);
         _movementComp.Construct(_unitSO);
         _combatAIComp.Construct(_unitSO);
+
+        _healthComp.OnDied += HandleOnDied;
+    }
+
+    private void HandleOnDied(HealthComp healthComp)
+    {
+        _healthComp.OnDied -= HandleOnDied;
+
+        _healthComp.enabled = !IsDead;
+        _movementComp.enabled = !IsDead;
+        _combatAIComp.enabled = !IsDead;
+
+        if (IsDead)
+        {
+            transform.rotation = Quaternion.Euler(0f, 0f, 90f);
+            GetComponentInChildren<SpriteRenderer>().color = Color.black;
+        }
     }
 }

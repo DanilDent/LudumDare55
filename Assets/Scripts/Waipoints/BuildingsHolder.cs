@@ -6,6 +6,8 @@ using UnityEngine;
 
 public sealed class BuildingsHolder : MonoSingleton<BuildingsHolder>
 {
+    public List<IBulding> Buildings => _buldings;
+
     [SerializeField] private List<IBulding> _buldings = new();
 
     public event Action<IBulding> OnBuildingClick;

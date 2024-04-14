@@ -36,11 +36,16 @@ public class Spawner : MonoBehaviour, IDamageble, IBulding, IPointerClickHandler
     private GlobalConfigHolder _globalConfigHolder;
     private LevelInfoHolder _levelInfoHolder;
 
+    [SerializeField] private HealthComp _healthComp;
+
     private void Start()
     {
         _unitFactory = UnitFactory.Instance;
         _globalConfigHolder = GlobalConfigHolder.Instance;
         _levelInfoHolder = LevelInfoHolder.Instance;
+
+        _healthComp = GetComponent<HealthComp>();
+        _healthComp.Construct(_config);
 
         var target = _levelInfoHolder.Waypoints.FirstOrDefault(_ => _.Sender.gameObject == gameObject)?.Target.transform;
         CurrentTarget = target.GetComponent<IBulding>();

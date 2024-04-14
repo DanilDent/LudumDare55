@@ -20,5 +20,5 @@ MonoBehaviour:
   _damage: 1
   _speed: 1
   _attackRate: 0.5
-  _attackRange: 0.001
+  _attackRange: 0.1
   _projectilePrefab: {fileID: 0}

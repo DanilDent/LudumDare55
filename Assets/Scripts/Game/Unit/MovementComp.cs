@@ -17,8 +17,8 @@ public class MovementComp : MonoBehaviour
         _localAvoidance.Construct();
     }
 
-    public Transform TargetPosition => _targetPosition;
-    [SerializeField] private Transform _targetPosition;
+    public Transform TargetTransform => _targetTransform;
+    [SerializeField] private Transform _targetTransform;
 
     private Seeker seeker;
 
@@ -47,7 +47,7 @@ public class MovementComp : MonoBehaviour
 
     public void SetTarget(Transform target)
     {
-        _targetPosition = target;
+        _targetTransform = target;
         lastRepath = float.NegativeInfinity;
     }
 
@@ -70,7 +70,7 @@ public class MovementComp : MonoBehaviour
 
     public void Update()
     {
-        if (_targetPosition == null)
+        if (_targetTransform == null)
         {
             return;
         }
@@ -83,7 +83,7 @@ public class MovementComp : MonoBehaviour
         if (Time.time > lastRepath + repathRate && seeker.IsDone())
         {
             lastRepath = Time.time;
-            seeker.StartPath(transform.position, _targetPosition.position, OnPathComplete);
+            seeker.StartPath(transform.position, _targetTransform.position, OnPathComplete);
         }
 
         if (path == null)

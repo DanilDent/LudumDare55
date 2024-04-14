@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System.Linq;
+using UnityEngine;
 
 public class CombatAIComp : MonoBehaviour
 {
@@ -8,15 +9,20 @@ public class CombatAIComp : MonoBehaviour
     private float _enemyDetectionDistance => _unitSO.EnemyDetectionDistance;
     private float _attackRange => _unitSO.AttackRange;
 
-    private HealthComp _currentTarget;
+    [SerializeField] private HealthComp _currentAttackTarget;
     private MovementComp _movementComp;
 
     private UnitSO _unitSO;
     private float _lastAttackTime = float.NegativeInfinity;
     private bool _isInAttackingState;
+    private BuildingsHolder _buildingsHolder;
+
     public void Construct(UnitSO unitSO)
     {
         _unitSO = unitSO;
+
+        _buildingsHolder = BuildingsHolder.Instance;
+
         _attackStrategyComp = AttackStrategyFactory.Instance.Create(GetComponent<UnitComp>(), _unitSO.UnitType.AttackType);
         _attackStrategyComp.Construct();
         _movementComp = GetComponent<MovementComp>();
@@ -30,7 +36,10 @@ public class CombatAIComp : MonoBehaviour
 
     private void Update()
     {
-        SearchForEnemies();
+        if (!SearchForEnemies())
+        {
+            CheckForTargetBuildingProximity();
+        }
         HandleCombat();
         _movementComp.canMove = !_isInAttackingState;
     }
@@ -43,15 +52,41 @@ public class CombatAIComp : MonoBehaviour
         {
             if (enemyUnit.IsDead) continue;
 
-            if (Vector3.Distance(transform.position, enemyUnit.transform.position) < _enemyDetectionDistance && _currentTarget == null)
+            if (Vector3.Distance(transform.position, enemyUnit.transform.position) < _enemyDetectionDistance && _currentAttackTarget == null)
             {
                 _unitComp.AddTarget(enemyUnit.transform);
                 enemyUnit.HealthComp.OnDied += HandleOnDied;
-                _currentTarget = enemyUnit.HealthComp;
+                _currentAttackTarget = enemyUnit.HealthComp;
                 return true;
             }
         }
 
+        return false;
+    }
+
+    private bool CheckForTargetBuildingProximity()
+    {
+        if (_currentAttackTarget != null)
+        {
+            return false;
+        }
+
+        IBulding targetBuilding = _buildingsHolder.Buildings.FirstOrDefault(_ => _.GetTransform().gameObject == _movementComp.TargetTransform.gameObject);
+        if (targetBuilding == null)
+        {
+            _currentAttackTarget = null;
+            return false;
+        }
+        if (targetBuilding.GetTransform().TryGetComponent<Spawner>(out var spawner))
+        {
+            if (Vector3.Distance(spawner.transform.position, transform.position) < _attackRange + 0.25f)
+            {
+                _currentAttackTarget = spawner.GetComponent<HealthComp>();
+                return true;
+            }
+        }
+
+        _currentAttackTarget = null;
         return false;
     }
 
@@ -66,13 +101,13 @@ public class CombatAIComp : MonoBehaviour
             return;
         }
 
-        if (_currentTarget == null)
+        if (_currentAttackTarget == null)
         {
             _lastAttackTime = float.NegativeInfinity;
             return;
         }
 
-        if (Vector3.Distance(_currentTarget.transform.position, transform.position) > _attackRange)
+        if (Vector3.Distance(_currentAttackTarget.transform.position, transform.position) > _attackRange)
         {
             _lastAttackTime = float.NegativeInfinity;
             _isInAttackingState = false;
@@ -86,7 +121,7 @@ public class CombatAIComp : MonoBehaviour
         if (Time.time > _lastAttackTime + _unitSO.AttackRate)
         {
             _lastAttackTime = Time.time;
-            _attackStrategyComp.Attack(_unitSO.Damage, _currentTarget, _unitSO.ProjectilePrefab);
+            _attackStrategyComp.Attack(_unitSO.Damage, _currentAttackTarget, _unitSO.ProjectilePrefab);
         }
     }
 
@@ -95,6 +130,9 @@ public class CombatAIComp : MonoBehaviour
     {
         comp.OnDied -= HandleOnDied;
         _unitComp.RemoveTarget(comp.transform);
-        _currentTarget = null;
+        if (_currentAttackTarget?.GetComponent<UnitComp>() != null)
+        {
+            _currentAttackTarget = null;
+        }
     }
 }
