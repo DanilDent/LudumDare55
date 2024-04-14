@@ -1,5 +1,6 @@
 using Misc;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -39,6 +40,8 @@ public class Spawner : MonoBehaviour, IDamageble, IBuilding, IPointerClickHandle
 
     public HealthComp HealthComp => _healthComp;
     [SerializeField] private HealthComp _healthComp;
+
+    private List<UnitComp> _createdUnits = new List<UnitComp>();
 
     private void Start()
     {

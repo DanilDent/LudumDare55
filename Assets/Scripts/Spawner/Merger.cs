@@ -49,10 +49,11 @@ public class Merger : MonoBehaviour, IBuilding, IPointerClickHandler
             return;
         }
 
-        if (_entitiesInMerger < _config.MergeReciptConfigSO.EntitysCountToMerge)
-        {
-            return;
-        }
+        //TODO: replace with new recipe so
+        //if (_entitiesInMerger < _config.MergeReciptConfigSO.EntitysCountToMerge)
+        //{
+        //    return;
+        //}
 
         CurrentResourceCount.Value -= _config.SpawnCostInResources;
 
