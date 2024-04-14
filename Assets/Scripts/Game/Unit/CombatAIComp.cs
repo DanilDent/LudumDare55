@@ -55,7 +55,7 @@ public class CombatAIComp : MonoBehaviour
             if (Vector3.Distance(transform.position, enemyUnit.transform.position) < _enemyDetectionDistance && _currentAttackTarget == null)
             {
                 _unitComp.AddTarget(enemyUnit.transform);
-                enemyUnit.HealthComp.OnDied += HandleOnDied;
+                enemyUnit.HealthComp.OnDied += HandleOnTargetUnitDied;
                 _currentAttackTarget = enemyUnit.HealthComp;
                 return true;
             }
@@ -71,7 +71,7 @@ public class CombatAIComp : MonoBehaviour
             return false;
         }
 
-        IBulding targetBuilding = _buildingsHolder.Buildings.FirstOrDefault(_ => _.GetTransform().gameObject == _movementComp.TargetTransform.gameObject);
+        IBuilding targetBuilding = _buildingsHolder.Buildings.FirstOrDefault(_ => _.GetTransform().gameObject == _movementComp.TargetTransform.gameObject);
         if (targetBuilding == null)
         {
             _currentAttackTarget = null;
@@ -79,9 +79,10 @@ public class CombatAIComp : MonoBehaviour
         }
         if (targetBuilding.GetTransform().TryGetComponent<Spawner>(out var spawner))
         {
-            if (Vector3.Distance(spawner.transform.position, transform.position) < _attackRange + 0.25f)
+            if (Vector3.Distance(spawner.transform.position, transform.position) < _attackRange + 0.25f && _currentAttackTarget == null)
             {
                 _currentAttackTarget = spawner.GetComponent<HealthComp>();
+                spawner.GetComponent<HealthComp>().OnDied += HandleOnTargetBuildingDied;
                 return true;
             }
         }
@@ -126,11 +127,21 @@ public class CombatAIComp : MonoBehaviour
     }
 
 
-    private void HandleOnDied(HealthComp comp)
+    private void HandleOnTargetUnitDied(HealthComp comp)
     {
-        comp.OnDied -= HandleOnDied;
+        comp.OnDied -= HandleOnTargetUnitDied;
         _unitComp.RemoveTarget(comp.transform);
         if (_currentAttackTarget?.GetComponent<UnitComp>() != null)
+        {
+            _currentAttackTarget = null;
+        }
+    }
+
+    private void HandleOnTargetBuildingDied(HealthComp comp)
+    {
+        comp.OnDied -= HandleOnTargetBuildingDied;
+        _unitComp.RemoveTarget(comp.transform);
+        if (_currentAttackTarget?.GetComponent<IBuilding>() != null)
         {
             _currentAttackTarget = null;
         }

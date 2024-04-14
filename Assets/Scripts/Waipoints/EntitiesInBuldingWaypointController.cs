@@ -3,15 +3,15 @@
 public sealed class EntitiesInBuldingWaypointController : MonoBehaviour
 {
     private BuildingsHolder _waypointsHolder;
-    private IBulding _startBulding;
-    private IBulding _moveToBulding;
+    private IBuilding _startBulding;
+    private IBuilding _moveToBulding;
 
     private bool _isStartBuldingSelected;
 
     private void Start()
     {
         _waypointsHolder = BuildingsHolder.Instance;
-        _startBulding = GetComponent<IBulding>();
+        _startBulding = GetComponent<IBuilding>();
 
         _startBulding.EntitySpawned += OnEnitySpawned;
         _waypointsHolder.OnBuildingClick += OnBuldingClicked;
@@ -25,12 +25,12 @@ public sealed class EntitiesInBuldingWaypointController : MonoBehaviour
         _waypointsHolder.OnBuldingDead -= OnDestroyBuldingMoveTo;
     }
 
-    public void SetMoveToBuilding(IBulding target)
+    public void SetMoveToBuilding(IBuilding target)
     {
         _moveToBulding = target;
     }
 
-    private void OnBuldingClicked(IBulding bulding)
+    private void OnBuldingClicked(IBuilding bulding)
     {
         if (_startBulding.Membership == Membership.Enemy)
         {
@@ -58,18 +58,13 @@ public sealed class EntitiesInBuldingWaypointController : MonoBehaviour
         _isStartBuldingSelected = false;
     }
 
-    private void OnDestroyBuldingMoveTo(IBulding bulding)
+    public void OnDestroyBuldingMoveTo(IBuilding building)
     {
-        if (_startBulding == bulding)
-        {
-            return;
-        }
-
-        if (_moveToBulding == bulding)
+        if (_moveToBulding == building)
         {
             _moveToBulding = _waypointsHolder.GetNearestBuldingByPosition(_startBulding);
             _startBulding.MoveEntitiesToNewTarget(_moveToBulding);
-            //_startBulding.MoveEntitiesToNewWaypoint(_moveToBulding.Waypoint);
+            _startBulding.MoveEntitiesToNewWaypoint(_moveToBulding.Waypoint);
         }
     }
 

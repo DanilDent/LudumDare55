@@ -4,7 +4,7 @@ using System.Linq;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-public class Spawner : MonoBehaviour, IDamageble, IBulding, IPointerClickHandler
+public class Spawner : MonoBehaviour, IDamageble, IBuilding, IPointerClickHandler
 {
     #region testing
     [SerializeField] private GameObject _testEntityPrefab;
@@ -23,13 +23,14 @@ public class Spawner : MonoBehaviour, IDamageble, IBulding, IPointerClickHandler
     public Vector3 Waypoint => transform.position;
 
     public Membership Membership => _config.Membership;
+    public TeamEnum Team => _config.Team;
 
-    private IBulding _currentTarget;
-    public IBulding CurrentTarget { get => _currentTarget; set => _currentTarget = value; }
+    private IBuilding _currentTarget;
+    public IBuilding CurrentTarget { get => _currentTarget; set => _currentTarget = value; }
     public Transform CurrentTargetTransform { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
 
-    public event Action<IBulding> Clicked;
-    public event Action<IBulding> Dead;
+    public event Action<IBuilding> Clicked;
+    public event Action<IBuilding> Dead;
     public event Action<GameObject> EntitySpawned;
 
     private UnitFactory _unitFactory;
@@ -48,7 +49,7 @@ public class Spawner : MonoBehaviour, IDamageble, IBulding, IPointerClickHandler
         _healthComp.Construct(_config);
 
         var target = _levelInfoHolder.Waypoints.FirstOrDefault(_ => _.Sender.gameObject == gameObject)?.Target.transform;
-        CurrentTarget = target.GetComponent<IBulding>();
+        CurrentTarget = target.GetComponent<IBuilding>();
         GetComponent<EntitiesInBuldingWaypointController>().SetMoveToBuilding(CurrentTarget);
         InitFromConfig();
     }
@@ -83,6 +84,7 @@ public class Spawner : MonoBehaviour, IDamageble, IBulding, IPointerClickHandler
 
     public void StartSpawning()
     {
+        CurrentTimeBeforeSpawn.Value = _config.TimeToSpawn;
         _canSpawn = true;
     }
 
@@ -102,7 +104,7 @@ public class Spawner : MonoBehaviour, IDamageble, IBulding, IPointerClickHandler
 
         for (int i = 0; i < _config.EntitySpawnCountPerSpawn; i++)
         {
-            var entity = _unitFactory.Create(_entityContainer, transform.position + Vector3.right, _config.Team, _config.UnitToSpawn);
+            var entity = _unitFactory.Create(_entityContainer, transform.position + Vector3.right, _config.Team, _config.UnitToSpawn, this);
             var target = _levelInfoHolder.Waypoints.FirstOrDefault(_ => _.Sender.gameObject == gameObject)?.Target.transform;
 
             EntitySpawned?.Invoke(entity.gameObject);
@@ -157,7 +159,7 @@ public class Spawner : MonoBehaviour, IDamageble, IBulding, IPointerClickHandler
         return transform;
     }
 
-    public void MoveEntitiesToNewTarget(IBulding target)
+    public void MoveEntitiesToNewTarget(IBuilding target)
     {
         CurrentTarget = target;
         foreach (Transform entityTransform in _entityContainer.transform)

@@ -17,11 +17,11 @@ public class UnitFactory : MonoSingleton<UnitFactory>
         _createdUnits.Add(TeamEnum.Enemy, new HashSet<UnitComp>());
     }
 
-    public UnitComp Create(Transform parent, Vector3 position, TeamEnum team, UnitSO unitSO)
+    public UnitComp Create(Transform parent, Vector3 position, TeamEnum team, UnitSO unitSO, IBuilding creatorBuilding)
     {
         UnitComp instance = Instantiate(unitSO.Prefab, parent);
         instance.transform.position = position;
-        instance.Construct(team, unitSO);
+        instance.Construct(team, unitSO, creatorBuilding);
         instance.GetComponent<HealthComp>().OnDied += HandleOnDied;
         _createdUnits[team].Add(instance);
         return instance;

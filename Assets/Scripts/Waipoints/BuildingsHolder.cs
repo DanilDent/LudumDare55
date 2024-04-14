@@ -6,23 +6,24 @@ using UnityEngine;
 
 public sealed class BuildingsHolder : MonoSingleton<BuildingsHolder>
 {
-    public List<IBulding> Buildings => _buldings;
+    public List<IBuilding> Buildings => _buildings;
 
-    [SerializeField] private List<IBulding> _buldings = new();
+    [SerializeField] private List<IBuilding> _buildings = new();
 
-    public event Action<IBulding> OnBuildingClick;
-    public event Action<IBulding> OnBuldingDead;
+    public event Action<IBuilding> OnBuildingClick;
+    public event Action<IBuilding> OnBuldingDead;
 
     protected override void Awake()
     {
         base.Awake();
 
-        IBulding[] buildings = GetComponentsInChildren<IBulding>();
-        foreach (IBulding building in buildings)
+        IBuilding[] buildings = GetComponentsInChildren<IBuilding>();
+        foreach (IBuilding building in buildings)
         {
-            _buldings.Add(building);
+            _buildings.Add(building);
             building.Clicked += OnBuildingClicked;
             building.Dead += OnBuldingDie;
+            building.GetTransform().GetComponent<HealthComp>().OnDied += HandleOnDie;
         }
     }
 
@@ -30,38 +31,49 @@ public sealed class BuildingsHolder : MonoSingleton<BuildingsHolder>
     {
         base.OnDestroy();
 
-        foreach (var buldings in _buldings)
+        foreach (var buldings in _buildings)
         {
             buldings.Clicked -= OnBuildingClicked;
         }
     }
 
-    private void OnBuildingClicked(IBulding bulding)
+    private void OnBuildingClicked(IBuilding bulding)
     {
         OnBuildingClick?.Invoke(bulding);
     }
 
-    private void OnBuldingDie(IBulding bulding)
+    private void OnBuldingDie(IBuilding bulding)
     {
         OnBuldingDead?.Invoke(bulding);
     }
 
-    public IBulding GetNearestBuldingByPosition(IBulding searchFrom)
+    private void HandleOnDie(HealthComp healthComp)
     {
-        Membership membership;
+        healthComp.OnDied -= HandleOnDie;
+        var building = healthComp.GetComponent<IBuilding>();
+        _buildings.Remove(building);
+        var buildingGO = building.GetTransform().gameObject;
+        buildingGO.gameObject.SetActive(false);
+        buildingGO.GetComponent<EntitiesInBuldingWaypointController>().OnDestroyBuldingMoveTo(building);
+        Destroy(buildingGO, 5f);
+    }
+
+    public IBuilding GetNearestBuldingByPosition(IBuilding searchFrom)
+    {
+        Membership opponentMembership;
 
         if (searchFrom.Membership == Membership.Player)
         {
-            membership = Membership.Enemy;
+            opponentMembership = Membership.Enemy;
         }
         else
         {
-            membership = Membership.Player;
+            opponentMembership = Membership.Player;
         }
 
-        var searchList = _buldings.Where(b => b.Membership == membership).ToList();
+        var searchList = _buildings.Where(b => b.Membership == opponentMembership && !b.GetTransform().GetComponent<HealthComp>().IsDead).ToList();
 
-        IBulding returnBulding = searchList[0];
+        IBuilding returnBulding = searchList[0];
         float minDistance = Vector2.Distance(searchFrom.Waypoint, returnBulding.Waypoint);
 
         foreach (var bulding in searchList)
@@ -77,4 +89,38 @@ public sealed class BuildingsHolder : MonoSingleton<BuildingsHolder>
 
         return returnBulding;
     }
+
+    //public IBuilding GetNearestOpponentBuldingByPosition(Transform searchFrom, TeamEnum searcherTeam)
+    //{
+    //    //TeamEnum opponentTeam
+
+    //    Membership opponentMembership;
+
+    //    if (searchFrom.Membership == Membership.Player)
+    //    {
+    //        opponentMembership = Membership.Enemy;
+    //    }
+    //    else
+    //    {
+    //        opponentMembership = Membership.Player;
+    //    }
+
+    //    var searchList = _buildings.Where(b => b.Membership == opponentMembership && !b.GetTransform().GetComponent<HealthComp>().IsDead).ToList();
+
+    //    IBuilding returnBulding = searchList[0];
+    //    float minDistance = Vector2.Distance(searchFrom.Waypoint, returnBulding.Waypoint);
+
+    //    foreach (var bulding in searchList)
+    //    {
+    //        float distance = Vector2.Distance(searchFrom.Waypoint, bulding.Waypoint);
+
+    //        if (distance < minDistance)
+    //        {
+    //            minDistance = distance;
+    //            returnBulding = bulding;
+    //        }
+    //    }
+
+    //    return returnBulding;
+    //}
 }

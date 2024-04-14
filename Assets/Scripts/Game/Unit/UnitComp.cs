@@ -11,6 +11,8 @@ public class UnitComp : MonoBehaviour
     [SerializeField] private MovementComp _movementComp;
     [SerializeField] private CombatAIComp _combatAIComp;
 
+    public IBuilding _creatorBuilding;
+
     public UnitSO UnitSO => _unitSO;
 
     public HealthComp HealthComp => _healthComp;
@@ -60,11 +62,13 @@ public class UnitComp : MonoBehaviour
         }
     }
 
-    public void Construct(TeamEnum team, UnitSO unitSO)
+    public void Construct(TeamEnum team, UnitSO unitSO, IBuilding creatorBuilding)
     {
         _movementComp = GetComponent<MovementComp>();
         _healthComp = GetComponent<HealthComp>();
         _combatAIComp = GetComponent<CombatAIComp>();
+
+        _creatorBuilding = creatorBuilding;
 
         _team = team;
         _unitSO = unitSO;

@@ -3,7 +3,7 @@ using System;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-public class Merger : MonoBehaviour, IBulding, IPointerClickHandler
+public class Merger : MonoBehaviour, IBuilding, IPointerClickHandler
 {
     #region testing
     [SerializeField] private GameObject _testEntityPrefab;
@@ -22,12 +22,12 @@ public class Merger : MonoBehaviour, IBulding, IPointerClickHandler
 
     public Membership Membership => _config.Membership;
 
-    private IBulding _currentTarget;
-    public IBulding CurrentTarget { get => _currentTarget; set => _currentTarget = value; }
+    private IBuilding _currentTarget;
+    public IBuilding CurrentTarget { get => _currentTarget; set => _currentTarget = value; }
     public Transform CurrentTargetTransform { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
 
-    public event Action<IBulding> Clicked;
-    public event Action<IBulding> Dead;
+    public event Action<IBuilding> Clicked;
+    public event Action<IBuilding> Dead;
     public event Action<GameObject> EntitySpawned;
 
     private void Start()
@@ -107,7 +107,7 @@ public class Merger : MonoBehaviour, IBulding, IPointerClickHandler
         return transform;
     }
 
-    public void MoveEntitiesToNewTarget(IBulding target)
+    public void MoveEntitiesToNewTarget(IBuilding target)
     {
         CurrentTarget = target;
         foreach (Transform entityTransform in _entityContainer.transform)
