@@ -37,6 +37,7 @@ public class Spawner : MonoBehaviour, IDamageble, IBuilding, IPointerClickHandle
     private GlobalConfigHolder _globalConfigHolder;
     private LevelInfoHolder _levelInfoHolder;
 
+    public HealthComp HealthComp => _healthComp;
     [SerializeField] private HealthComp _healthComp;
 
     private void Start()
@@ -104,7 +105,7 @@ public class Spawner : MonoBehaviour, IDamageble, IBuilding, IPointerClickHandle
 
         for (int i = 0; i < _config.EntitySpawnCountPerSpawn; i++)
         {
-            var entity = _unitFactory.Create(_entityContainer, transform.position + Vector3.right, _config.Team, _config.UnitToSpawn, this);
+            var entity = _unitFactory.Create(_entityContainer, transform.position + Vector3.right, _config.Team, _config.UnitToSpawn);
             var target = _levelInfoHolder.Waypoints.FirstOrDefault(_ => _.Sender.gameObject == gameObject)?.Target.transform;
 
             EntitySpawned?.Invoke(entity.gameObject);
@@ -165,12 +166,17 @@ public class Spawner : MonoBehaviour, IDamageble, IBuilding, IPointerClickHandle
         foreach (Transform entityTransform in _entityContainer.transform)
         {
             var unitComp = entityTransform.GetComponent<UnitComp>();
-            if (CurrentTarget.GetTransform() != null)
+            if (CurrentTarget?.GetTransform() != null)
             {
-                unitComp.RemoveTarget(CurrentTarget.GetTransform());
+                unitComp.RemoveTarget(CurrentTarget?.GetTransform());
             }
             CurrentTarget = target;
-            unitComp.PrependTarget(CurrentTarget.GetTransform());
+            unitComp.PrependTarget(CurrentTarget?.GetTransform());
         }
+    }
+
+    public void InvokeDead(IBuilding building)
+    {
+        Dead?.Invoke(this);
     }
 }

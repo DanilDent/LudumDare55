@@ -62,13 +62,11 @@ public class UnitComp : MonoBehaviour
         }
     }
 
-    public void Construct(TeamEnum team, UnitSO unitSO, IBuilding creatorBuilding)
+    public void Construct(TeamEnum team, UnitSO unitSO)
     {
         _movementComp = GetComponent<MovementComp>();
         _healthComp = GetComponent<HealthComp>();
         _combatAIComp = GetComponent<CombatAIComp>();
-
-        _creatorBuilding = creatorBuilding;
 
         _team = team;
         _unitSO = unitSO;

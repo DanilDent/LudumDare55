@@ -8,6 +8,8 @@ public interface IBuilding
     public event Action<IBuilding> Clicked;
     public event Action<GameObject> EntitySpawned;
 
+    public void InvokeDead(IBuilding building);
+
     public Membership Membership { get; }
     public TeamEnum Team { get; }
     public Vector3 Waypoint { get; }

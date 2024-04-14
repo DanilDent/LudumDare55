@@ -501,6 +501,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _checkBoxForValidate: 0
   spawners:
+  - {fileID: 0}
   - {fileID: 1318851477}
   - {fileID: 4883883}
   - {fileID: 77723576}

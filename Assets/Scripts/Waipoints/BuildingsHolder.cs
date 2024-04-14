@@ -54,7 +54,7 @@ public sealed class BuildingsHolder : MonoSingleton<BuildingsHolder>
         _buildings.Remove(building);
         var buildingGO = building.GetTransform().gameObject;
         buildingGO.gameObject.SetActive(false);
-        buildingGO.GetComponent<EntitiesInBuldingWaypointController>().OnDestroyBuldingMoveTo(building);
+        building?.InvokeDead(building);
         Destroy(buildingGO, 5f);
     }
 
@@ -72,6 +72,11 @@ public sealed class BuildingsHolder : MonoSingleton<BuildingsHolder>
         }
 
         var searchList = _buildings.Where(b => b.Membership == opponentMembership && !b.GetTransform().GetComponent<HealthComp>().IsDead).ToList();
+
+        if (searchList.Count == 0)
+        {
+            return null;
+        }
 
         IBuilding returnBulding = searchList[0];
         float minDistance = Vector2.Distance(searchFrom.Waypoint, returnBulding.Waypoint);

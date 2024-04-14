@@ -1,5 +1,4 @@
-﻿using System.Linq;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class CombatAIComp : MonoBehaviour
 {
@@ -71,13 +70,28 @@ public class CombatAIComp : MonoBehaviour
             return false;
         }
 
-        IBuilding targetBuilding = _buildingsHolder.Buildings.FirstOrDefault(_ => _.GetTransform().gameObject == _movementComp.TargetTransform.gameObject);
+        if (_movementComp.TargetTransform == null)
+        {
+            return false;
+        }
+
+        IBuilding targetBuilding = null;
+        for (int i = 0; i < _buildingsHolder.Buildings.Count; i++)
+        {
+            var building = _buildingsHolder.Buildings[i];
+            if (building?.GetTransform().gameObject != null && building.GetTransform().gameObject == _movementComp.TargetTransform.gameObject)
+            {
+                targetBuilding = building;
+                break;
+            }
+        }
+
         if (targetBuilding == null)
         {
             _currentAttackTarget = null;
             return false;
         }
-        if (targetBuilding.GetTransform().TryGetComponent<Spawner>(out var spawner))
+        if (targetBuilding.GetTransform().TryGetComponent<Spawner>(out var spawner) && !spawner.HealthComp.IsDead)
         {
             if (Vector3.Distance(spawner.transform.position, transform.position) < _attackRange + 0.25f && _currentAttackTarget == null)
             {
@@ -145,5 +159,7 @@ public class CombatAIComp : MonoBehaviour
         {
             _currentAttackTarget = null;
         }
+
+        //IBuilding newTarget = BuildingsHolder.Instance.GetNearestBuldingByPosition()
     }
 }

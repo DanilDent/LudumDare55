@@ -58,13 +58,17 @@ public sealed class EntitiesInBuldingWaypointController : MonoBehaviour
         _isStartBuldingSelected = false;
     }
 
-    public void OnDestroyBuldingMoveTo(IBuilding building)
+    private void OnDestroyBuldingMoveTo(IBuilding destroyedBuilding)
     {
-        if (_moveToBulding == building)
+        if (_startBulding == destroyedBuilding)
+        {
+            return;
+        }
+
+        if (_moveToBulding == destroyedBuilding)
         {
             _moveToBulding = _waypointsHolder.GetNearestBuldingByPosition(_startBulding);
             _startBulding.MoveEntitiesToNewTarget(_moveToBulding);
-            _startBulding.MoveEntitiesToNewWaypoint(_moveToBulding.Waypoint);
         }
     }
 

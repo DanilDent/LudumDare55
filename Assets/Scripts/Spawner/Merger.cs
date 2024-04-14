@@ -26,6 +26,8 @@ public class Merger : MonoBehaviour, IBuilding, IPointerClickHandler
     public IBuilding CurrentTarget { get => _currentTarget; set => _currentTarget = value; }
     public Transform CurrentTargetTransform { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
 
+    public TeamEnum Team => throw new NotImplementedException();
+
     public event Action<IBuilding> Clicked;
     public event Action<IBuilding> Dead;
     public event Action<GameObject> EntitySpawned;
@@ -120,5 +122,10 @@ public class Merger : MonoBehaviour, IBuilding, IPointerClickHandler
             CurrentTarget = target;
             unitComp.PrependTarget(CurrentTarget.GetTransform());
         }
+    }
+
+    public void InvokeDead(IBuilding building)
+    {
+        Dead?.Invoke(building);
     }
 }
