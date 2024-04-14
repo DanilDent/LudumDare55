@@ -4,7 +4,7 @@ using UnityEngine;
 namespace Misc
 {
     [Serializable]
-    public struct KeyValuePair<TKey, TValue>
+    public class KeyValuePair<TKey, TValue>
     {
         public KeyValuePair(TKey key, TValue value)
         {
@@ -18,5 +18,11 @@ namespace Misc
 
         [SerializeField] private TKey _key;
         [SerializeField] private TValue _value;
+
+        public KeyValuePair(KeyValuePair<TKey, TValue> keyValuePair)
+        {
+            _key = keyValuePair.Key;
+            _value = default;
+        }
     }
 }

@@ -1,5 +1,7 @@
 using Misc;
 using System;
+using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
@@ -12,8 +14,7 @@ public class Merger : MonoBehaviour, IBuilding, IPointerClickHandler
     [SerializeField] private MergerConfigSO _config;
     [SerializeField] private Transform _entityContainer;
 
-    private int _entitiesInMerger;
-
+    private Misc.KeyValuePair<UnitSO, int>[] _unitsInMerger;
     //private List<Entity> _entitiesInMergerForMerge;
     //private List<Entity> _entitiesInMergerAfterMerge
 
@@ -40,6 +41,7 @@ public class Merger : MonoBehaviour, IBuilding, IPointerClickHandler
     private void InitFromConfig()
     {
         CurrentResourceCount = new(_config.MaxResourceCount);
+        _unitsInMerger = _config.MergeReciptConfigSO.RecipeInfo.Input.Select(k => new Misc.KeyValuePair<UnitSO, int>(k)).ToArray();
     }
 
     private void TrySpawn()
@@ -49,34 +51,45 @@ public class Merger : MonoBehaviour, IBuilding, IPointerClickHandler
             return;
         }
 
-        //TODO: replace with new recipe so
-        //if (_entitiesInMerger < _config.MergeReciptConfigSO.EntitysCountToMerge)
-        //{
-        //    return;
-        //}
+        for (int i = 0; i < _unitsInMerger.Length; i++)
+        {
+            if (_unitsInMerger[i].Value < _config.MergeReciptConfigSO.RecipeInfo.Input[i].Value)
+            {
+                return;
+            }
+        }
 
         CurrentResourceCount.Value -= _config.SpawnCostInResources;
 
-        for (int i = 0; i < _config.EntitySpawnCountPerSpawn; i++)
+        for (int i = 0; i < _unitsInMerger.Length; i++)
         {
-            var entity = Instantiate(_testEntityPrefab, transform.position + Vector3.right, Quaternion.identity, _entityContainer);
-            //_entitiesInMergerAfterMerge.Add(entity);
-            EntitySpawned?.Invoke(entity);
+            _unitsInMerger[i].Value -= _config.MergeReciptConfigSO.RecipeInfo.Input[i].Value;
         }
 
-        //destroy entities requier for merger
-        //
-        // for (int i = 0; i < _entitiesInMerger; i++)
-        // {
-        //     Destroy(_entitiesInMerger[0]);
-        // }
-
-        _entitiesInMerger = 0;
+        for (int i = 0; i < _config.MergeReciptConfigSO.RecipeInfo.Output.Value; i++)
+        {
+            var entity = UnitFactory.Instance.Create(GlobalConfigHolder.Instance.PlayerEntitiesContainer, 
+                transform.position + Vector3.right / 4, 
+                Team,
+                _config.MergeReciptConfigSO.RecipeInfo.Output.Key);
+            //_entitiesInMergerAfterMerge.Add(entity);
+            EntitySpawned?.Invoke(entity.gameObject);
+        }
     }
 
-    public void AddEntity()
+    public void AddUnit(UnitComp unit)
     {
-        _entitiesInMerger++;
+        Misc.KeyValuePair<UnitSO, int> keyValuePair = _unitsInMerger.FirstOrDefault(k => k.Key == unit.UnitSO);
+
+        if (keyValuePair.Key == null)
+        {
+            return;
+        }
+
+        UnitFactory.Instance.Destroy(unit);
+
+        keyValuePair.Value++; 
+
         TrySpawn();
     }
 

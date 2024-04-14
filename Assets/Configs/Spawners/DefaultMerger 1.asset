@@ -13,7 +13,9 @@ MonoBehaviour:
   m_Name: DefaultMerger 1
   m_EditorClassIdentifier: 
   <Membership>k__BackingField: 2
+  <Team>k__BackingField: 2
   <EntityType>k__BackingField: 0
+  <UnitToSpawn>k__BackingField: {fileID: 0}
   <MaxResourceCount>k__BackingField: 5
   <EntitySpawnCountPerSpawn>k__BackingField: 1
   <SpawnCostInResources>k__BackingField: 1

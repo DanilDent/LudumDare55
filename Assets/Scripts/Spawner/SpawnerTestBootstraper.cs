@@ -21,7 +21,7 @@ public sealed class SpawnerTestBootstraper : MonoBehaviour
         
         if (Input.GetKeyDown(KeyCode.E))
         {
-            _merger.AddEntity();
+            //_merger.AddUnit();
         }
 
         if (Input.GetKeyDown(KeyCode.Z))

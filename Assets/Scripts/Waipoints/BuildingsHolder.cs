@@ -23,7 +23,11 @@ public sealed class BuildingsHolder : MonoSingleton<BuildingsHolder>
             _buildings.Add(building);
             building.Clicked += OnBuildingClicked;
             building.Dead += OnBuldingDie;
-            building.GetTransform().GetComponent<HealthComp>().OnDied += HandleOnDie;
+
+            if (building is Spawner)
+            {
+                building.GetTransform().GetComponent<HealthComp>().OnDied += HandleOnDie;
+            }
         }
     }
 

@@ -1,6 +1,7 @@
 ﻿using Misc;
 using System.Collections.Generic;
 using UnityEngine;
+using static Unity.Burst.Intrinsics.X86.Avx;
 
 // Handles life time of units
 public class UnitFactory : MonoSingleton<UnitFactory>
@@ -25,6 +26,12 @@ public class UnitFactory : MonoSingleton<UnitFactory>
         instance.GetComponent<HealthComp>().OnDied += HandleOnDied;
         _createdUnits[team].Add(instance);
         return instance;
+    }
+
+    public void Destroy(UnitComp unit)
+    {
+        gameObject.SetActive(false);
+        _deadQueue.Enqueue(unit.GetComponent<UnitComp>());
     }
 
     public HashSet<UnitComp> GetAllCreatedTeamUnits(TeamEnum team)
