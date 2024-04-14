@@ -5,6 +5,9 @@ using UnityEngine;
 public class GlobalConfigHolder : MonoSingleton<GlobalConfigHolder>
 {
     [SerializeField] private GlobalConfigSO _globalConfig;
+    [SerializeField] private Transform _projectilesContainer;
+
+    public Transform ProjectilesContainer => _projectilesContainer;
 
     public float GetDamageModifier(UnitTypeSO attacker, UnitTypeSO defender)
     {

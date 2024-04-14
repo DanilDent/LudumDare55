@@ -12,6 +12,7 @@ public class UnitSO : ScriptableObject
     public float Speed => _speed;
     public float AttackRate => _attackRate;
     public float AttackRange => _attackRange;
+    public Projectile ProjectilePrefab => _projectilePrefab;
 
     [SerializeField] private string _name;
     [SerializeField] private UnitComp _prefab;
@@ -22,4 +23,5 @@ public class UnitSO : ScriptableObject
     [SerializeField] private float _speed;
     [SerializeField] private float _attackRate = 0.5f;
     [SerializeField] private float _attackRange = 1f;
+    [SerializeField] private Projectile _projectilePrefab;
 }

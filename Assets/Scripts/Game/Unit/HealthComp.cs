@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class HealthComp : MonoBehaviour
 {
+    [SerializeField] private int _debugHealth;
+
     public Action<HealthComp> OnDied;
     public ReactiveProperty<int> Health = new ReactiveProperty<int>();
     public int MaxHealth => _unitSO.MaxHealth;
@@ -29,6 +31,7 @@ public class HealthComp : MonoBehaviour
 
     private void OnHealthChanged(int health)
     {
+        _debugHealth = health;
         if (health < 0)
         {
             Health.Value = 0;

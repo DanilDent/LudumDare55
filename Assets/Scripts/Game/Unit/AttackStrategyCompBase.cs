@@ -9,7 +9,7 @@ public abstract class AttackStrategyCompBase : MonoBehaviour
         _unitComp = GetComponent<UnitComp>();
     }
 
-    public virtual void Attack(float damage, HealthComp targetHealth)
+    public virtual void Attack(int damage, HealthComp targetHealth, Projectile projPrefab = null)
     {
         Debug.Log($"Attack: {gameObject.name} -> {targetHealth.gameObject.name}");
     }

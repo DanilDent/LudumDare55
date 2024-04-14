@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7115074911662120149}
   - component: {fileID: 5785590372635121186}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Capsule
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -101,7 +101,7 @@ GameObject:
   - component: {fileID: 5078645212781500193}
   - component: {fileID: 7531397102345018462}
   - component: {fileID: 7676225947957000183}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: EnemyUnit
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -213,13 +213,13 @@ Rigidbody2D:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2858246751896274285}
   m_BodyType: 1
-  m_Simulated: 0
+  m_Simulated: 1
   m_UseFullKinematicContacts: 1
   m_UseAutoMass: 0
   m_Mass: 1
   m_LinearDrag: 0
   m_AngularDrag: 0.05
-  m_GravityScale: 1
+  m_GravityScale: 0
   m_Material: {fileID: 0}
   m_IncludeLayers:
     serializedVersion: 2
@@ -243,6 +243,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eece151924ba9ac45a4359a38a9aca9b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _debugHealth: 0
 --- !u!114 &5078645212781500193
 MonoBehaviour:
   m_ObjectHideFlags: 0

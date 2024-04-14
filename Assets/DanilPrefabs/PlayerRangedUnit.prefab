@@ -74,7 +74,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 4
   m_Sprite: {fileID: -9095717837082945937, guid: 207ee8102dd4143d288186ef0be518ee, type: 3}
-  m_Color: {r: 0.16812715, g: 0.16509432, b: 1, a: 1}
+  m_Color: {r: 0.9622642, g: 0.96033615, b: 0.09531862, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -102,7 +102,7 @@ GameObject:
   - component: {fileID: 7531397102345018462}
   - component: {fileID: 7676225947957000183}
   m_Layer: 7
-  m_Name: PlayerUnit
+  m_Name: PlayerRangedUnit
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

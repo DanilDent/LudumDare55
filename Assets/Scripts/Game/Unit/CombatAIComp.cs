@@ -9,14 +9,17 @@ public class CombatAIComp : MonoBehaviour
     private float _attackRange => _unitSO.AttackRange;
 
     private HealthComp _currentTarget;
+    private MovementComp _movementComp;
 
     private UnitSO _unitSO;
     private float _lastAttackTime = float.NegativeInfinity;
+    private bool _isInAttackingState;
     public void Construct(UnitSO unitSO)
     {
         _unitSO = unitSO;
         _attackStrategyComp = AttackStrategyFactory.Instance.Create(GetComponent<UnitComp>(), _unitSO.UnitType.AttackType);
         _attackStrategyComp.Construct();
+        _movementComp = GetComponent<MovementComp>();
     }
 
     private void Start()
@@ -29,6 +32,7 @@ public class CombatAIComp : MonoBehaviour
     {
         SearchForEnemies();
         HandleCombat();
+        _movementComp.canMove = !_isInAttackingState;
     }
 
     private bool SearchForEnemies()
@@ -37,6 +41,8 @@ public class CombatAIComp : MonoBehaviour
         var enemyUnits = _unitFactory.GetAllCreatedTeamUnits(enemyTeam);
         foreach (var enemyUnit in enemyUnits)
         {
+            if (enemyUnit.IsDead) continue;
+
             if (Vector3.Distance(transform.position, enemyUnit.transform.position) < _enemyDetectionDistance && _currentTarget == null)
             {
                 _unitComp.AddTarget(enemyUnit.transform);
@@ -51,6 +57,8 @@ public class CombatAIComp : MonoBehaviour
 
     private void HandleCombat()
     {
+        _isInAttackingState = false;
+
         if (_attackStrategyComp == null)
         {
             Debug.LogWarning($"No attack strategy assigned for unit {gameObject.name}");
@@ -67,16 +75,20 @@ public class CombatAIComp : MonoBehaviour
         if (Vector3.Distance(_currentTarget.transform.position, transform.position) > _attackRange)
         {
             _lastAttackTime = float.NegativeInfinity;
+            _isInAttackingState = false;
             return;
+        }
+        else
+        {
+            _isInAttackingState = true;
         }
 
         if (Time.time > _lastAttackTime + _unitSO.AttackRate)
         {
             _lastAttackTime = Time.time;
-            _attackStrategyComp.Attack(_unitSO.Damage, _currentTarget);
+            _attackStrategyComp.Attack(_unitSO.Damage, _currentTarget, _unitSO.ProjectilePrefab);
         }
     }
-
 
 
     private void HandleOnDied(HealthComp comp)

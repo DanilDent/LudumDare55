@@ -32,7 +32,7 @@ public class CombatSystemTest : MonoBehaviour
         {
             var pos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
             var pos2D = new Vector2(pos.x, pos.y);
-            var instance = _unitFactory.Create(_playerUnitsContainer, pos2D, TeamEnum.Enemy, _enemyUnitSO);
+            var instance = _unitFactory.Create(_enemyUnitsContainer, pos2D, TeamEnum.Enemy, _enemyUnitSO);
             instance.AddTarget(_playerCity);
         }
     }

@@ -10,6 +10,11 @@ public class AttackStrategyFactory : MonoSingleton<AttackStrategyFactory>
             return unitComp.AddComponent<AttackStrategyMelee>();
         }
 
+        if (attackType == AttackTypeEnum.Range)
+        {
+            return unitComp.AddComponent<AttackStrategyRange>();
+        }
+
         return null;
     }
 }

@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 public class AttackStrategyMelee : AttackStrategyCompBase
 {
-    public override void Attack(float damage, HealthComp targetHealth)
+    public override void Attack(int damage, HealthComp targetHealth, Projectile projPrefab = null)
     {
         base.Attack(damage, targetHealth);
         PlayAnim();
