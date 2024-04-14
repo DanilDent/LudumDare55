@@ -6,7 +6,7 @@ using UnityEngine;
 
 public sealed class BuildingsHolder : MonoSingleton<BuildingsHolder>
 {
-    private List<IBulding> _buldings = new();
+    [SerializeField] private List<IBulding> _buldings = new();
 
     public event Action<IBulding> OnBuildingClick;
     public event Action<IBulding> OnBuldingDead;
@@ -15,14 +15,12 @@ public sealed class BuildingsHolder : MonoSingleton<BuildingsHolder>
     {
         base.Awake();
 
-        foreach (Transform child in transform)
+        IBulding[] buildings = GetComponentsInChildren<IBulding>();
+        foreach (IBulding building in buildings)
         {
-            if (child.TryGetComponent<IBulding>(out var bulding))
-            {
-                _buldings.Add(bulding);
-                bulding.Clicked += OnBuildingClicked;
-                bulding.Dead += OnBuldingDie;
-            }
+            _buldings.Add(building);
+            building.Clicked += OnBuildingClicked;
+            building.Dead += OnBuldingDie;
         }
     }
 
@@ -54,7 +52,7 @@ public sealed class BuildingsHolder : MonoSingleton<BuildingsHolder>
         {
             membership = Membership.Enemy;
         }
-        else 
+        else
         {
             membership = Membership.Player;
         }
@@ -64,7 +62,7 @@ public sealed class BuildingsHolder : MonoSingleton<BuildingsHolder>
         IBulding returnBulding = searchList[0];
         float minDistance = Vector2.Distance(searchFrom.Waypoint, returnBulding.Waypoint);
 
-        foreach(var bulding in searchList)
+        foreach (var bulding in searchList)
         {
             float distance = Vector2.Distance(searchFrom.Waypoint, bulding.Waypoint);
 

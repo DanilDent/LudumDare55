@@ -45,27 +45,32 @@ public class UnitComp : MonoBehaviour
     public void AddTarget(Transform target)
     {
         _targetsList.Add(target);
-        _movementComp.SetTarget(target);
+        _movementComp.SetTarget(CurrentTarget);
+    }
+
+    public void PrependTarget(Transform target)
+    {
+        _targetsList.Insert(0, target);
+        _movementComp.SetTarget(CurrentTarget);
     }
 
     public void RemoveTarget(Transform target)
     {
         _targetsList.Remove(target);
-        if (_targetsList.Count > 0)
-        {
-            _movementComp.SetTarget(_targetsList[_targetsList.Count - 1]);
-        }
-        else
-        {
-            // perform search for a new target
-        }
+        _movementComp.SetTarget(CurrentTarget);
     }
 
     private void Update()
     {
+        if (_movementComp.TargetPosition == null)
+        {
+            _movementComp.SetTarget(CurrentTarget);
+            return;
+        }
         if (_movementComp.TargetPosition.gameObject == null)
         {
             _movementComp.SetTarget(CurrentTarget);
+            return;
         }
     }
 

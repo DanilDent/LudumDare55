@@ -8,6 +8,8 @@ public class GlobalConfigHolder : MonoSingleton<GlobalConfigHolder>
     [SerializeField] private Transform _projectilesContainer;
 
     public Transform ProjectilesContainer => _projectilesContainer;
+    [field: SerializeField] public Transform EnemyEntitiesContainer { get; private set; }
+    [field: SerializeField] public Transform PlayerEntitiesContainer { get; private set; }
 
     public float GetDamageModifier(UnitTypeSO attacker, UnitTypeSO defender)
     {

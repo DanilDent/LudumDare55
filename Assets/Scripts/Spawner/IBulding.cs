@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using UnityEngine;
 
 public interface IBulding
@@ -12,4 +11,8 @@ public interface IBulding
     public Vector3 Waypoint { get; }
     public bool IsSelecteble();
     public void MoveEntitiesToNewWaypoint(Vector3 waypoint);
+    public void MoveEntitiesToNewTarget(IBulding target);
+    public IBulding CurrentTarget { get; set; }
+    public Transform CurrentTargetTransform { get; set; }
+    public Transform GetTransform();
 }

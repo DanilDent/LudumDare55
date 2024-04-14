@@ -22,6 +22,10 @@ public class Merger : MonoBehaviour, IBulding, IPointerClickHandler
 
     public Membership Membership => _config.Membership;
 
+    private IBulding _currentTarget;
+    public IBulding CurrentTarget { get => _currentTarget; set => _currentTarget = value; }
+    public Transform CurrentTargetTransform { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
+
     public event Action<IBulding> Clicked;
     public event Action<IBulding> Dead;
     public event Action<GameObject> EntitySpawned;
@@ -75,7 +79,7 @@ public class Merger : MonoBehaviour, IBulding, IPointerClickHandler
 
     public bool IsSelecteble()
     {
-        if  (CurrentResourceCount.Value < _config.SpawnCostInResources)
+        if (CurrentResourceCount.Value < _config.SpawnCostInResources)
         {
             return false;
         }
@@ -96,5 +100,25 @@ public class Merger : MonoBehaviour, IBulding, IPointerClickHandler
     public void MoveEntitiesToNewWaypoint(Vector3 waypoint)
     {
         Debug.Log("Moving from merger");
+    }
+
+    public Transform GetTransform()
+    {
+        return transform;
+    }
+
+    public void MoveEntitiesToNewTarget(IBulding target)
+    {
+        CurrentTarget = target;
+        foreach (Transform entityTransform in _entityContainer.transform)
+        {
+            var unitComp = entityTransform.GetComponent<UnitComp>();
+            if (CurrentTarget.GetTransform() != null)
+            {
+                unitComp.RemoveTarget(CurrentTarget.GetTransform());
+            }
+            CurrentTarget = target;
+            unitComp.PrependTarget(CurrentTarget.GetTransform());
+        }
     }
 }

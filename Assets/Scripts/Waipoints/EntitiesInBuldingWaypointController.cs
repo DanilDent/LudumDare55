@@ -25,6 +25,11 @@ public sealed class EntitiesInBuldingWaypointController : MonoBehaviour
         _waypointsHolder.OnBuldingDead -= OnDestroyBuldingMoveTo;
     }
 
+    public void SetMoveToBuilding(IBulding target)
+    {
+        _moveToBulding = target;
+    }
+
     private void OnBuldingClicked(IBulding bulding)
     {
         if (_startBulding.Membership == Membership.Enemy)
@@ -46,7 +51,8 @@ public sealed class EntitiesInBuldingWaypointController : MonoBehaviour
         if (bulding.IsSelecteble())
         {
             _moveToBulding = bulding;
-            _startBulding.MoveEntitiesToNewWaypoint(bulding.Waypoint);
+            _startBulding.MoveEntitiesToNewTarget(bulding);
+            //_startBulding.MoveEntitiesToNewWaypoint(bulding.Waypoint);
         }
 
         _isStartBuldingSelected = false;
@@ -62,13 +68,15 @@ public sealed class EntitiesInBuldingWaypointController : MonoBehaviour
         if (_moveToBulding == bulding)
         {
             _moveToBulding = _waypointsHolder.GetNearestBuldingByPosition(_startBulding);
-            _startBulding.MoveEntitiesToNewWaypoint(_moveToBulding.Waypoint);
+            _startBulding.MoveEntitiesToNewTarget(_moveToBulding);
+            //_startBulding.MoveEntitiesToNewWaypoint(_moveToBulding.Waypoint);
         }
     }
 
     private void OnEnitySpawned(GameObject entity)
     {
         Debug.Log("Spawned");
+        entity.GetComponent<UnitComp>().AddTarget(_moveToBulding.GetTransform());
         //entity.moveTo(_movetoBulding.Waypoint);
     }
 }

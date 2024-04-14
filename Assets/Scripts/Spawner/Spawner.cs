@@ -1,6 +1,7 @@
-using UnityEngine;
 using Misc;
 using System;
+using System.Linq;
+using UnityEngine;
 using UnityEngine.EventSystems;
 
 public class Spawner : MonoBehaviour, IDamageble, IBulding, IPointerClickHandler
@@ -23,12 +24,27 @@ public class Spawner : MonoBehaviour, IDamageble, IBulding, IPointerClickHandler
 
     public Membership Membership => _config.Membership;
 
+    private IBulding _currentTarget;
+    public IBulding CurrentTarget { get => _currentTarget; set => _currentTarget = value; }
+    public Transform CurrentTargetTransform { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
+
     public event Action<IBulding> Clicked;
     public event Action<IBulding> Dead;
     public event Action<GameObject> EntitySpawned;
 
+    private UnitFactory _unitFactory;
+    private GlobalConfigHolder _globalConfigHolder;
+    private LevelInfoHolder _levelInfoHolder;
+
     private void Start()
     {
+        _unitFactory = UnitFactory.Instance;
+        _globalConfigHolder = GlobalConfigHolder.Instance;
+        _levelInfoHolder = LevelInfoHolder.Instance;
+
+        var target = _levelInfoHolder.Waypoints.FirstOrDefault(_ => _.Sender.gameObject == gameObject)?.Target.transform;
+        CurrentTarget = target.GetComponent<IBulding>();
+        GetComponent<EntitiesInBuldingWaypointController>().SetMoveToBuilding(CurrentTarget);
         InitFromConfig();
     }
 
@@ -81,9 +97,10 @@ public class Spawner : MonoBehaviour, IDamageble, IBulding, IPointerClickHandler
 
         for (int i = 0; i < _config.EntitySpawnCountPerSpawn; i++)
         {
-            var entity = Instantiate(_testEntityPrefab, transform.position + Vector3.right, Quaternion.identity, _entityContainer);
-            //_entitiesInSpawner.Add(entity);
-            EntitySpawned?.Invoke(entity);
+            var entity = _unitFactory.Create(_entityContainer, transform.position + Vector3.right, _config.Team, _config.UnitToSpawn);
+            var target = _levelInfoHolder.Waypoints.FirstOrDefault(_ => _.Sender.gameObject == gameObject)?.Target.transform;
+
+            EntitySpawned?.Invoke(entity.gameObject);
         }
     }
 
@@ -126,6 +143,27 @@ public class Spawner : MonoBehaviour, IDamageble, IBulding, IPointerClickHandler
 
     public void MoveEntitiesToNewWaypoint(Vector3 waypoint)
     {
+
         Debug.Log("Move from spawner");
+    }
+
+    public Transform GetTransform()
+    {
+        return transform;
+    }
+
+    public void MoveEntitiesToNewTarget(IBulding target)
+    {
+        CurrentTarget = target;
+        foreach (Transform entityTransform in _entityContainer.transform)
+        {
+            var unitComp = entityTransform.GetComponent<UnitComp>();
+            if (CurrentTarget.GetTransform() != null)
+            {
+                unitComp.RemoveTarget(CurrentTarget.GetTransform());
+            }
+            CurrentTarget = target;
+            unitComp.PrependTarget(CurrentTarget.GetTransform());
+        }
     }
 }
