@@ -135,26 +135,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: '[GAME]'
       objectReference: {fileID: 0}
-    - target: {fileID: 6309872361694362240, guid: ee8aa4a2de37712428a63a3d37059c08, type: 3}
-      propertyPath: spawners.Array.size
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6309872361694362240, guid: ee8aa4a2de37712428a63a3d37059c08, type: 3}
-      propertyPath: spawners.Array.data[0]
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 6309872361694362240, guid: ee8aa4a2de37712428a63a3d37059c08, type: 3}
-      propertyPath: spawners.Array.data[1]
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 6309872361694362240, guid: ee8aa4a2de37712428a63a3d37059c08, type: 3}
-      propertyPath: spawners.Array.data[2]
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 6309872361694362240, guid: ee8aa4a2de37712428a63a3d37059c08, type: 3}
-      propertyPath: spawners.Array.data[3]
-      value: 
-      objectReference: {fileID: 0}
     - target: {fileID: 8977415567108541891, guid: ee8aa4a2de37712428a63a3d37059c08, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
