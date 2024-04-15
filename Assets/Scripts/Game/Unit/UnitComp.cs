@@ -10,6 +10,7 @@ public class UnitComp : MonoBehaviour
     [SerializeField] private HealthComp _healthComp;
     [SerializeField] private MovementComp _movementComp;
     [SerializeField] private CombatAIComp _combatAIComp;
+    [SerializeField] private Animator _animator;
 
     public IBuilding _creatorBuilding;
 
@@ -106,6 +107,7 @@ public class UnitComp : MonoBehaviour
 
     private void HandleOnDied(HealthComp healthComp)
     {
+        _animator.SetBool("Die", true);
         _healthComp.OnDied -= HandleOnDied;
 
         _healthComp.enabled = !IsDead;

@@ -8,7 +8,7 @@ using UnityEngine.UIElements;
 
 public class Merger : MonoBehaviour, IBuilding, IPointerClickHandler
 {
-
+    [SerializeField] private Animator _animator;
     [SerializeField] private MergerConfigSO _config;
     [SerializeField] private Transform _entityContainer;
     [SerializeField] private Sprite _sprite;
@@ -64,6 +64,7 @@ public class Merger : MonoBehaviour, IBuilding, IPointerClickHandler
     {
         if (CurrentResourceCount.Value < _config.SpawnCostInResources)
         {
+            _animator.SetBool("ResourcesEmpty", true);
             return;
         }
 
