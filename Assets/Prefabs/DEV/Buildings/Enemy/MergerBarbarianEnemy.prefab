@@ -13,11 +13,7 @@ GameObject:
   - component: {fileID: 3872199653736167711}
   - component: {fileID: 1400191466314472368}
   m_Layer: 0
-<<<<<<<< Updated upstream:Assets/Prefabs/DEV/Buildings/Enemy/MergerBarbarianEnemy.prefab
   m_Name: MergerBarbarianEnemy
-========
-  m_Name: MergerPlayerMelee
->>>>>>>> Stashed changes:Assets/Prefabs/DEV/Buildings/Player/MergerPlayerMelee.prefab
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -52,12 +48,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 40b03fb33b1a77e4dbca6f1f27323064, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-<<<<<<<< Updated upstream:Assets/Prefabs/DEV/Buildings/Enemy/MergerBarbarianEnemy.prefab
   _animator: {fileID: 3259231763853205143}
   _config: {fileID: 11400000, guid: dc884e93a54d0c2409aba4853576a66f, type: 2}
-========
-  _config: {fileID: 11400000, guid: 3c3d86d68f17bd34293be84a2a8aa8ca, type: 2}
->>>>>>>> Stashed changes:Assets/Prefabs/DEV/Buildings/Player/MergerPlayerMelee.prefab
   _entityContainer: {fileID: 2245442992063856963}
   _sprite: {fileID: 7482667652216324306, guid: 48e93eef0688c4a259cb0eddcd8661f7, type: 3}
 --- !u!61 &3872199653736167711

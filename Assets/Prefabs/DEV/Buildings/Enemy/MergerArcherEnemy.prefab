@@ -13,11 +13,7 @@ GameObject:
   - component: {fileID: 3872199653736167711}
   - component: {fileID: 1400191466314472368}
   m_Layer: 0
-<<<<<<<< Updated upstream:Assets/Prefabs/DEV/Buildings/Enemy/MergerArcherEnemy.prefab
   m_Name: MergerArcherEnemy
-========
-  m_Name: MergerEnemyArcher
->>>>>>>> Stashed changes:Assets/Prefabs/DEV/Buildings/Enemy/MergerEnemyArcher.prefab
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -52,12 +48,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 40b03fb33b1a77e4dbca6f1f27323064, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-<<<<<<<< Updated upstream:Assets/Prefabs/DEV/Buildings/Enemy/MergerArcherEnemy.prefab
   _animator: {fileID: 9150699075456899871}
   _config: {fileID: 11400000, guid: fe95cb965fd28644e93d98621ddb110a, type: 2}
-========
-  _config: {fileID: 11400000, guid: 37c15a01fdd1155409f1142ddd0ab41a, type: 2}
->>>>>>>> Stashed changes:Assets/Prefabs/DEV/Buildings/Enemy/MergerEnemyArcher.prefab
   _entityContainer: {fileID: 2245442992063856963}
   _sprite: {fileID: 7482667652216324306, guid: 48e93eef0688c4a259cb0eddcd8661f7, type: 3}
 --- !u!61 &3872199653736167711

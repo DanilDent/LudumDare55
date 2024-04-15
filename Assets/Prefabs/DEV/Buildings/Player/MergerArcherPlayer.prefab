@@ -13,11 +13,7 @@ GameObject:
   - component: {fileID: 3872199653736167711}
   - component: {fileID: 1400191466314472368}
   m_Layer: 0
-<<<<<<<< Updated upstream:Assets/Prefabs/DEV/Buildings/Player/MergerArcherPlayer.prefab
   m_Name: MergerArcherPlayer
-========
-  m_Name: MergerPlayerArcher
->>>>>>>> Stashed changes:Assets/Prefabs/DEV/Buildings/Player/MergerPlayerArcher.prefab
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
