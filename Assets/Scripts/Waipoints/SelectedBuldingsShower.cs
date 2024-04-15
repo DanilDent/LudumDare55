@@ -1,8 +1,12 @@
-﻿using UnityEngine;
+﻿using Misc;
+using System;
+using UnityEngine;
 
 [DefaultExecutionOrder(10)]
-public sealed class SelectedBuldingsShower : MonoBehaviour
+public sealed class SelectedBuldingsShower : MonoSingleton<SelectedBuldingsShower>
 {
+    public Action<Transform, Transform> SelectionChanged;
+
     private BuildingsHolder _waypointsHolder;
     private BackClickDetector _backClickDetector;
     private IBuilding _selected;
@@ -19,7 +23,7 @@ public sealed class SelectedBuldingsShower : MonoBehaviour
         _waypointsHolder.OnBuildingClick += OnBuldingClicked;
     }
 
-    private void OnDestroy()
+    protected override void OnDestroy()
     {
         _backClickDetector.OnBackClick -= OnBackClick;
         _waypointsHolder.OnBuildingClick -= OnBuldingClicked;
@@ -31,6 +35,7 @@ public sealed class SelectedBuldingsShower : MonoBehaviour
 
         if (bulding.Team == TeamEnum.Player && bulding.IsEnoughResourcesToSpawn == false)
         {
+            SelectionChanged?.Invoke(_selected?.GetTransform(), _selectedTarget?.GetTransform());
             return;
         }
 
@@ -40,6 +45,7 @@ public sealed class SelectedBuldingsShower : MonoBehaviour
 
             if (bulding.IsSelecteble() == false || _selected == bulding || _selected.Team == TeamEnum.Enemy)
             {
+                SelectionChanged?.Invoke(_selected?.GetTransform(), _selectedTarget?.GetTransform());
                 return;
             }
 
@@ -58,11 +64,13 @@ public sealed class SelectedBuldingsShower : MonoBehaviour
             _selected.SelectedSprite.gameObject.SetActive(true);
         }
 
-        if (_selectedTarget.SelectedSprite != null)
+        if (_selectedTarget?.SelectedSprite != null)
         {
             _selectedTarget.SelectedSprite.color = Color.green;
             _selectedTarget.SelectedSprite.gameObject.SetActive(true);
         }
+
+        SelectionChanged?.Invoke(_selected?.GetTransform(), _selectedTarget?.GetTransform());
     }
 
     private void OnBackClick()
@@ -71,5 +79,7 @@ public sealed class SelectedBuldingsShower : MonoBehaviour
         _selected = null;
         _selectedTarget = null;
         _firstBuldingSelected = false;
+
+        SelectionChanged?.Invoke(null, null);
     }
 }

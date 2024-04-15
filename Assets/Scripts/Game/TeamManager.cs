@@ -1,4 +1,6 @@
-﻿public class TeamManager
+﻿using UnityEngine;
+
+public class TeamManager : MonoBehaviour
 {
     public static TeamEnum InverseTeam(TeamEnum team)
     {

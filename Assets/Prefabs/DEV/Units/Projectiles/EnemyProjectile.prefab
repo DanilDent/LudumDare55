@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1135226287124815605}
   - component: {fileID: 6260819928494323780}
-  m_Layer: 7
+  m_Layer: 8
   m_Name: Circle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -74,7 +74,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 4
   m_Sprite: {fileID: -2413806693520163455, guid: a86470a33a6bf42c4b3595704624658b, type: 3}
-  m_Color: {r: 0.6037736, g: 0.019935932, b: 0.367523, a: 1}
+  m_Color: {r: 0.2830189, g: 0, b: 0.03740788, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -96,8 +96,8 @@ GameObject:
   - component: {fileID: 7943582780566996543}
   - component: {fileID: 503370896721918839}
   - component: {fileID: 8406396816469836809}
-  m_Layer: 7
-  m_Name: PlayerProjectile
+  m_Layer: 8
+  m_Name: EnemyProjectile
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -132,7 +132,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 0.15
-  _team: 1
+  _team: 2
 --- !u!61 &503370896721918839
 BoxCollider2D:
   m_ObjectHideFlags: 0
