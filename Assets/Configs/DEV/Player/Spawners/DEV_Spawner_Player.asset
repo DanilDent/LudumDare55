@@ -10,13 +10,13 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: bcb203b6f50682f46a75ea799acf66f9, type: 3}
-  m_Name: EnemySpawnerGD
+  m_Name: DEV_Spawner_Player
   m_EditorClassIdentifier: 
-  <Membership>k__BackingField: 2
-  <Team>k__BackingField: 2
+  <Membership>k__BackingField: 1
+  <Team>k__BackingField: 1
   <EntityType>k__BackingField: 0
-  <UnitToSpawn>k__BackingField: {fileID: 11400000, guid: fe54d727eddcb984d9af5bdca4532f9b, type: 2}
-  <MaxResourceCount>k__BackingField: 50
+  <UnitToSpawn>k__BackingField: {fileID: 11400000, guid: b16241364ce018549a9584a4920492e9, type: 2}
+  <MaxResourceCount>k__BackingField: 8
   <EntitySpawnCountPerSpawn>k__BackingField: 1
   <SpawnCostInResources>k__BackingField: 1
   <TimeToSpawn>k__BackingField: 1

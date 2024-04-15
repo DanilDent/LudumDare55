@@ -73,6 +73,6 @@ public sealed class EntitiesInBuldingWaypointController : MonoBehaviour
 
     private void OnEnitySpawned(GameObject entity)
     {
-        entity.GetComponent<UnitComp>().AddTarget(_moveToBulding.GetTransform());
+        entity.GetComponent<UnitComp>().AddTarget(_moveToBulding?.GetTransform());
     }
 }
