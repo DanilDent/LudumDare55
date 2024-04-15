@@ -57,6 +57,8 @@ public class HealthComp : MonoBehaviour
 
         if (health == 0)
         {
+            var collider = GetComponent<Collider2D>();
+            collider.enabled = false;
             _isDead = true;
             OnDied?.Invoke(this);
         }
