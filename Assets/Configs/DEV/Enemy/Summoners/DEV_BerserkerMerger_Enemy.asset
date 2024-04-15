@@ -10,13 +10,13 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d1a9102549a002a42997e93f48e51f76, type: 3}
-  m_Name: DEV_ArcherMerger_Enemy
+  m_Name: DEV_BerserkerMerger_Enemy
   m_EditorClassIdentifier: 
   <Membership>k__BackingField: 2
   <Team>k__BackingField: 2
   <EntityType>k__BackingField: 1
-  <UnitToSpawn>k__BackingField: {fileID: 11400000, guid: 14d0c407b565a0740bd472c96f1eed04, type: 2}
+  <UnitToSpawn>k__BackingField: {fileID: 11400000, guid: c2f961887fd5fb3439f28072c7e86569, type: 2}
   <MaxResourceCount>k__BackingField: 5
   <EntitySpawnCountPerSpawn>k__BackingField: 1
   <SpawnCostInResources>k__BackingField: 1
-  <MergeReciptConfigSO>k__BackingField: {fileID: 11400000, guid: 3f29ce740d1d48040807cdc3517761e7, type: 2}
+  <MergeReciptConfigSO>k__BackingField: {fileID: 11400000, guid: 40a8f7a7dd51f164db07a7e7cdf5eb1a, type: 2}

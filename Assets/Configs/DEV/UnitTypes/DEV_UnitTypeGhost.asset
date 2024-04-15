@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: cd77e22e2bbbd7d459729ca54d711326, type: 3}
-  m_Name: DEV_UnitTypeRanged
+  m_Name: DEV_UnitTypeGhost
   m_EditorClassIdentifier: 
-  Name: Archer
-  AttackType: 2
+  Name: Ghost
+  AttackType: 1
