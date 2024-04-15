@@ -16,7 +16,7 @@ MonoBehaviour:
   _prefab: {fileID: 7676225947957000183, guid: bc87a0c5601772143a6accdaf0f1c1ae, type: 3}
   _unitType: {fileID: 11400000, guid: 3989e2de535608543965fef7e1d2035f, type: 2}
   _maxHealth: 10
-  _enemyDetecationDistance: 5
+  _enemyDetecationDistance: 0.5
   _damage: 1
   _speed: 1
   _attackRate: 0.5

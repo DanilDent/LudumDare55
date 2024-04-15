@@ -1,7 +1,6 @@
 ﻿using Misc;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using UnityEngine;
 
 public sealed class BuildingsHolder : MonoSingleton<BuildingsHolder>
@@ -76,7 +75,24 @@ public sealed class BuildingsHolder : MonoSingleton<BuildingsHolder>
             opponentMembership = Membership.Player;
         }
 
-        var searchList = _buildings.Where(b => b.Membership == opponentMembership && !b.GetTransform().GetComponent<HealthComp>().IsDead).ToList();
+        var searchList = new List<IBuilding>();
+
+        for (int i = 0; i < _buildings.Count; i++)
+        {
+            var b = _buildings[i];
+
+            if (b == null || b?.GetTransform() == null || b?.GetTransform()?.GetComponent<HealthComp>() == null)
+            {
+                continue;
+            }
+
+            if (b.Membership == opponentMembership && !b.GetTransform().GetComponent<HealthComp>().IsDead)
+            {
+                searchList.Add(b);
+            }
+        }
+
+        //var searchList = _buildings.Where(b => b.Membership == opponentMembership && !b.GetTransform().GetComponent<HealthComp>().IsDead).ToList();
 
         if (searchList.Count == 0)
         {
