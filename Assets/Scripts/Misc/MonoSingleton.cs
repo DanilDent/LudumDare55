@@ -20,7 +20,7 @@ where T : MonoBehaviour
             }
             else
             {
-                Destroy(gameObject);
+                Debug.LogError($"Error: two singletons of type {gameObject.name}");
             }
         }
 
