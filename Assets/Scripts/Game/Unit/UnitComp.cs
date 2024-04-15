@@ -15,7 +15,7 @@ public class UnitComp : MonoBehaviour
     public IBuilding _creatorBuilding;
 
     public UnitSO UnitSO => _unitSO;
-
+    public CombatAIComp CombatAIComp => _combatAIComp;
     public HealthComp HealthComp => _healthComp;
 
     public TeamEnum Team => _team;

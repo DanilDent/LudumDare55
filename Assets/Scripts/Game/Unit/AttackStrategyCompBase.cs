@@ -1,7 +1,9 @@
+using System;
 using UnityEngine;
 
 public abstract class AttackStrategyCompBase : MonoBehaviour
 {
+    public event Action<UnitComp> Attacked; 
     protected UnitComp _unitComp;
 
     public virtual void Construct()
@@ -16,6 +18,6 @@ public abstract class AttackStrategyCompBase : MonoBehaviour
 
     protected virtual void PlayAnim()
     {
-
+        Attacked?.Invoke(_unitComp);
     }
 }
