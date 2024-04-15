@@ -49,7 +49,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _animator: {fileID: 9150699075456899871}
-  _config: {fileID: 11400000, guid: fe95cb965fd28644e93d98621ddb110a, type: 2}
+  _config: {fileID: 11400000, guid: dc2067ecf7096264a9747376dbd7d90b, type: 2}
   _entityContainer: {fileID: 2245442992063856963}
   _sprite: {fileID: 7482667652216324306, guid: 48e93eef0688c4a259cb0eddcd8661f7, type: 3}
 --- !u!61 &3872199653736167711
