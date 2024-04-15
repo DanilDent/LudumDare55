@@ -132,7 +132,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 0.15
-  _team: 0
+  _team: 1
 --- !u!61 &503370896721918839
 BoxCollider2D:
   m_ObjectHideFlags: 0

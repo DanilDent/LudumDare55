@@ -15,6 +15,9 @@ public class CombatAIComp : MonoBehaviour
     private float _lastAttackTime = float.NegativeInfinity;
     private bool _isInAttackingState;
     private BuildingsHolder _buildingsHolder;
+    
+    public bool IsInAttackingState => _isInAttackingState;
+    public AttackStrategyCompBase AttackStrategyComp => _attackStrategyComp;
 
     public void Construct(UnitSO unitSO)
     {
@@ -31,6 +34,16 @@ public class CombatAIComp : MonoBehaviour
     {
         _unitComp = GetComponent<UnitComp>();
         _unitFactory = UnitFactory.Instance;
+    }
+
+    private void OnDestroy()
+    {
+        _isInAttackingState = false;
+    }
+
+    private void OnDisable()
+    {
+        _isInAttackingState = false;
     }
 
     private void Update()

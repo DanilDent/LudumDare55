@@ -7,13 +7,11 @@ using UnityEngine.EventSystems;
 
 public class Spawner : MonoBehaviour, IDamageble, IBuilding, IPointerClickHandler
 {
-
     [SerializeField] private SpawnerConfigSO _config;
     [SerializeField] private Transform _entityContainer;
     [SerializeField] private Sprite _sprite;
 
     private bool _canSpawn;
-    //private List<Entity> _entitiesInSpawner;
 
     public ReactiveProperty<int> CurrentResourceCount { get; private set; } = new ReactiveProperty<int>();
     public ReactiveProperty<int> CurrentHealth { get; private set; } = new ReactiveProperty<int>();
@@ -105,7 +103,6 @@ public class Spawner : MonoBehaviour, IDamageble, IBuilding, IPointerClickHandle
 
     public void StartSpawning()
     {
-        //CurrentTimeBeforeSpawn.Value = _config.TimeToSpawn;
         _canSpawn = true;
     }
 
@@ -118,6 +115,7 @@ public class Spawner : MonoBehaviour, IDamageble, IBuilding, IPointerClickHandle
     {
         if (CurrentResourceCount.Value < _config.SpawnCostInResources)
         {
+            //_animator.SetBool("ResourcesEmpty", true);
             return;
         }
 
