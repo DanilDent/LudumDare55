@@ -9,15 +9,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bcb203b6f50682f46a75ea799acf66f9, type: 3}
-  m_Name: PlayerSpawnerGD
+  m_Script: {fileID: 11500000, guid: d1a9102549a002a42997e93f48e51f76, type: 3}
+  m_Name: PlayerMeleeMergerGD
   m_EditorClassIdentifier: 
   <Membership>k__BackingField: 1
   <Team>k__BackingField: 1
-  <EntityType>k__BackingField: 0
-  <UnitToSpawn>k__BackingField: {fileID: 11400000, guid: 8ebf2cb799de9a54baa9bbfa33cee738, type: 2}
-  <MaxResourceCount>k__BackingField: 10
+  <EntityType>k__BackingField: 3
+  <UnitToSpawn>k__BackingField: {fileID: 11400000, guid: fb9717737ab7f0f4d978c5cc6eddba3f, type: 2}
+  <MaxResourceCount>k__BackingField: 5
   <EntitySpawnCountPerSpawn>k__BackingField: 1
   <SpawnCostInResources>k__BackingField: 1
-  <TimeToSpawn>k__BackingField: 1
-  <SpawnerHealth>k__BackingField: 50
+  <MergeReciptConfigSO>k__BackingField: {fileID: 11400000, guid: 40a8f7a7dd51f164db07a7e7cdf5eb1a, type: 2}

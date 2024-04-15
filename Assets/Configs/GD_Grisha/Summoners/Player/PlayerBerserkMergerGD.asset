@@ -10,12 +10,12 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d1a9102549a002a42997e93f48e51f76, type: 3}
-  m_Name: PlayerMegaBomzhMerger
+  m_Name: PlayerBerserkMergerGD
   m_EditorClassIdentifier: 
   <Membership>k__BackingField: 1
   <Team>k__BackingField: 1
-  <EntityType>k__BackingField: 1
-  <UnitToSpawn>k__BackingField: {fileID: 11400000, guid: f6924924c66c4c845a23536004d75eaf, type: 2}
+  <EntityType>k__BackingField: 3
+  <UnitToSpawn>k__BackingField: {fileID: 11400000, guid: 5089a97a94227524384277c93743722d, type: 2}
   <MaxResourceCount>k__BackingField: 5
   <EntitySpawnCountPerSpawn>k__BackingField: 1
   <SpawnCostInResources>k__BackingField: 1
