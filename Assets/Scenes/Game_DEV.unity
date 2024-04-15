@@ -712,6 +712,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: MergerBarbarianPlayer
       objectReference: {fileID: 0}
+    - target: {fileID: 5768873264370336274, guid: bf791f051cbb6a9499f8664c60219520, type: 3}
+      propertyPath: _config
+      value: 
+      objectReference: {fileID: 11400000, guid: fe5a470d31b36a44cb5872a994ee6567, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -928,6 +932,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 2152158023439366797, guid: b9a8426992992be44ae5422fc7386e2e, type: 3}
       insertIndex: -1
       addedObject: {fileID: 784505731}
+    - targetCorrespondingSourceObject: {fileID: 2152158023439366797, guid: b9a8426992992be44ae5422fc7386e2e, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 784505736}
   m_SourcePrefab: {fileID: 100100000, guid: b9a8426992992be44ae5422fc7386e2e, type: 3}
 --- !u!4 &784505725 stripped
 Transform:
@@ -995,6 +1002,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a535d8e1092a95c4cb9b23e515d30574, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &784505736
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 784505727}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 283f56f8a75675042a5cf17f043fac66, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _battleAnim: {fileID: 2348657283726406557, guid: c10f2504291b22d448573e5502961ffb, type: 3}
+  _spawnRadius: 1
+  _animDuration: 2
 --- !u!1 &848360816
 GameObject:
   m_ObjectHideFlags: 0
