@@ -7,12 +7,10 @@ using UnityEngine.EventSystems;
 
 public class Spawner : MonoBehaviour, IDamageble, IBuilding, IPointerClickHandler
 {
-    #region testing
-    [SerializeField] private GameObject _testEntityPrefab;
-    #endregion
 
     [SerializeField] private SpawnerConfigSO _config;
     [SerializeField] private Transform _entityContainer;
+    [SerializeField] private Sprite _sprite;
 
     private bool _canSpawn;
     //private List<Entity> _entitiesInSpawner;
@@ -27,8 +25,6 @@ public class Spawner : MonoBehaviour, IDamageble, IBuilding, IPointerClickHandle
     public TeamEnum Team => _config.Team;
 
     private IBuilding _currentTarget;
-    public IBuilding CurrentTarget { get => _currentTarget; set => _currentTarget = value; }
-    public Transform CurrentTargetTransform { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
 
     public event Action<IBuilding> Clicked;
     public event Action<IBuilding> Dead;
@@ -39,9 +35,15 @@ public class Spawner : MonoBehaviour, IDamageble, IBuilding, IPointerClickHandle
     private LevelInfoHolder _levelInfoHolder;
 
     public HealthComp HealthComp => _healthComp;
+    public SpriteRenderer SelectedSprite { get; set; }
+
     [SerializeField] private HealthComp _healthComp;
 
     private List<UnitComp> _createdUnits = new List<UnitComp>();
+
+    public bool IsEnoughResourcesToSpawn => CurrentResourceCount.Value >= _config.SpawnCostInResources;
+
+    public IBuilding CurrentTarget { get => _currentTarget; set => _currentTarget = value; }
 
     private void Start()
     {
@@ -63,6 +65,16 @@ public class Spawner : MonoBehaviour, IDamageble, IBuilding, IPointerClickHandle
         CurrentHealth = new(_config.SpawnerHealth);
         CurrentResourceCount = new(_config.MaxResourceCount);
         CurrentTimeBeforeSpawn = new(_config.TimeToSpawn);
+
+        var newGameObject = new GameObject();
+        newGameObject.transform.SetParent(transform);
+        newGameObject.SetActive(false);
+        newGameObject.transform.position = transform.position;
+        newGameObject.transform.localScale = new Vector3(.6f, .6f, 0);
+        var spriteRenderer = newGameObject.AddComponent<SpriteRenderer>();
+        spriteRenderer.sprite = _sprite;
+        spriteRenderer.sortingOrder = 3;
+        SelectedSprite = spriteRenderer;
     }
 
     private void OnDestroy()
@@ -113,11 +125,20 @@ public class Spawner : MonoBehaviour, IDamageble, IBuilding, IPointerClickHandle
 
         for (int i = 0; i < _config.EntitySpawnCountPerSpawn; i++)
         {
-            var entity = _unitFactory.Create(_entityContainer, transform.position + Vector3.right, _config.Team, _config.UnitToSpawn);
+            var teamContainer = _globalConfigHolder.GetTeamUnitsContaienr(_config.Team);
+            var entity = _unitFactory.Create(teamContainer, transform.position + Vector3.right, _config.Team, _config.UnitToSpawn);
+            _createdUnits.Add(entity);
+            entity.HealthComp.OnDied += HandleOnDied;
             var target = _levelInfoHolder.Waypoints.FirstOrDefault(_ => _.Sender.gameObject == gameObject)?.Target.transform;
 
             EntitySpawned?.Invoke(entity.gameObject);
         }
+    }
+
+    private void HandleOnDied(HealthComp comp)
+    {
+        comp.OnDied -= HandleOnDied;
+        _createdUnits.Remove(comp.UnitComp);
     }
 
     public void TakeDamage(int damage)
@@ -134,15 +155,21 @@ public class Spawner : MonoBehaviour, IDamageble, IBuilding, IPointerClickHandle
 
     public bool IsSelecteble()
     {
+        if (CurrentHealth.Value <= 0)
+        {
+            return false;
+        }
+
+        if (_config.Team == TeamEnum.Enemy)
+        {
+            return true;
+        }
+
         if (CurrentResourceCount.Value < _config.SpawnCostInResources)
         {
             return false;
         }
 
-        if (CurrentHealth.Value <= 0)
-        {
-            return false;
-        }
 
         if (_config.Membership == Membership.Player)
         {
@@ -165,9 +192,9 @@ public class Spawner : MonoBehaviour, IDamageble, IBuilding, IPointerClickHandle
     public void MoveEntitiesToNewTarget(IBuilding target)
     {
         CurrentTarget = target;
-        foreach (Transform entityTransform in _entityContainer.transform)
+        for (int i = 0; i < _createdUnits.Count; i++)
         {
-            var unitComp = entityTransform.GetComponent<UnitComp>();
+            var unitComp = _createdUnits[i];
             if (CurrentTarget?.GetTransform() != null)
             {
                 unitComp.RemoveTarget(CurrentTarget?.GetTransform());

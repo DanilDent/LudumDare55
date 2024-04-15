@@ -15,4 +15,9 @@ public class GlobalConfigHolder : MonoSingleton<GlobalConfigHolder>
     {
         return _globalConfig.DamageModifiers.FirstOrDefault(_ => _.Attacker == attacker && _.Defender == defender)?.Modifier ?? 1f;
     }
+
+    public Transform GetTeamUnitsContaienr(TeamEnum team)
+    {
+        return team == TeamEnum.Player ? PlayerEntitiesContainer : EnemyEntitiesContainer;
+    }
 }

@@ -17,16 +17,16 @@ public sealed class BuildingsHolder : MonoSingleton<BuildingsHolder>
     {
         base.Awake();
 
-        IBuilding[] buildings = GetComponentsInChildren<IBuilding>();
-        foreach (IBuilding building in buildings)
+        IBuilding[] buldings = GetComponentsInChildren<IBuilding>();
+        foreach (IBuilding bulding in buldings)
         {
-            _buildings.Add(building);
-            building.Clicked += OnBuildingClicked;
-            building.Dead += OnBuldingDie;
+            _buildings.Add(bulding);
+            bulding.Clicked += OnBuildingClicked;
+            bulding.Dead += OnBuldingDie;
 
-            if (building is Spawner)
+            if (bulding is Spawner)
             {
-                building.GetTransform().GetComponent<HealthComp>().OnDied += HandleOnDie;
+                bulding.GetTransform().GetComponent<HealthComp>().OnDied += HandleOnDie;
             }
         }
     }
@@ -35,9 +35,10 @@ public sealed class BuildingsHolder : MonoSingleton<BuildingsHolder>
     {
         base.OnDestroy();
 
-        foreach (var buldings in _buildings)
+        foreach (var bulding in _buildings)
         {
-            buldings.Clicked -= OnBuildingClicked;
+            bulding.Clicked -= OnBuildingClicked;
+            bulding.Dead -= OnBuldingDie;
         }
     }
 
@@ -97,6 +98,11 @@ public sealed class BuildingsHolder : MonoSingleton<BuildingsHolder>
         }
 
         return returnBulding;
+    }
+
+    public void DisableAllSelecetedSpriteOnBuldings()
+    {
+        _buildings.ForEach(b => b.SelectedSprite.gameObject.SetActive(false));
     }
 
     //public IBuilding GetNearestOpponentBuldingByPosition(Transform searchFrom, TeamEnum searcherTeam)

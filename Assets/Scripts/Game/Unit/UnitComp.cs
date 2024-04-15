@@ -21,7 +21,7 @@ public class UnitComp : MonoBehaviour
 
     [SerializeField] private TeamEnum _team;
 
-    private List<Transform> _targetsList = new List<Transform>();
+    [SerializeField] private List<Transform> _targetsList = new List<Transform>();
     private UnitSO _unitSO;
     public bool IsDead
     {
