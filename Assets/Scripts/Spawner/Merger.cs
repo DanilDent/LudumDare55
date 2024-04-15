@@ -2,6 +2,7 @@ using Misc;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Unity.VisualScripting.FullSerializer;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UIElements;
@@ -12,9 +13,14 @@ public class Merger : MonoBehaviour, IBuilding, IPointerClickHandler
     [SerializeField] private MergerConfigSO _config;
     [SerializeField] private Transform _entityContainer;
     [SerializeField] private Sprite _sprite;
-
+    
     private Misc.KeyValuePair<UnitSO, int>[] _unitsInMerger;
 
+    private int _unitsRequireForMerge;
+    private int _unitsSpawnAfterMerge;
+
+    public int UnitsRequireForMerge => _unitsRequireForMerge;
+    public int UnitsSpawnAfterMerge => _unitsSpawnAfterMerge;
     public ReactiveProperty<int> CurrentResourceCount { get; private set; }
     public Vector3 Waypoint => transform.position;
 
@@ -32,6 +38,7 @@ public class Merger : MonoBehaviour, IBuilding, IPointerClickHandler
     public event Action<IBuilding> Clicked;
     public event Action<IBuilding> Dead;
     public event Action<GameObject> EntitySpawned;
+    public event Action<int> UnitAddedToMerge;
 
     private List<UnitComp> _createdUnits = new List<UnitComp>();
 
@@ -58,6 +65,9 @@ public class Merger : MonoBehaviour, IBuilding, IPointerClickHandler
         spriteRenderer.sprite = _sprite;
         spriteRenderer.sortingOrder = 3;
         SelectedSprite = spriteRenderer;
+
+        _unitsRequireForMerge = _config.MergeReciptConfigSO.RecipeInfo.Input[0].Value;
+        _unitsSpawnAfterMerge = _config.MergeReciptConfigSO.RecipeInfo.Output.Value;
     }
 
     private void TrySpawn()
@@ -87,7 +97,7 @@ public class Merger : MonoBehaviour, IBuilding, IPointerClickHandler
         {
             var teamContainer = GlobalConfigHolder.Instance.GetTeamUnitsContaienr(_config.Team);
             var entity = UnitFactory.Instance.Create(teamContainer,
-                transform.position + Vector3.right,
+                transform.position + Vector3.right / 2,
                 Team,
                 _config.MergeReciptConfigSO.RecipeInfo.Output.Key);
             _createdUnits.Add(entity);
@@ -115,8 +125,8 @@ public class Merger : MonoBehaviour, IBuilding, IPointerClickHandler
         UnitFactory.Instance.Destroy(unit);
 
         keyValuePair.Value++;
-
         TrySpawn();
+        UnitAddedToMerge?.Invoke(keyValuePair.Value);
     }
 
     public bool IsSelecteble()

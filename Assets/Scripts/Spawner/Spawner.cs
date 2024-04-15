@@ -92,6 +92,11 @@ public class Spawner : MonoBehaviour, IDamageble, IBuilding, IPointerClickHandle
             return;
         }
 
+        if (CurrentResourceCount.Value < _config.SpawnCostInResources)
+        {
+            return;
+        }
+
         CurrentTimeBeforeSpawn.Value -= Time.deltaTime;
 
         if (CurrentTimeBeforeSpawn.Value <= 0)
@@ -115,7 +120,6 @@ public class Spawner : MonoBehaviour, IDamageble, IBuilding, IPointerClickHandle
     {
         if (CurrentResourceCount.Value < _config.SpawnCostInResources)
         {
-            //_animator.SetBool("ResourcesEmpty", true);
             return;
         }
 
@@ -124,7 +128,7 @@ public class Spawner : MonoBehaviour, IDamageble, IBuilding, IPointerClickHandle
         for (int i = 0; i < _config.EntitySpawnCountPerSpawn; i++)
         {
             var teamContainer = _globalConfigHolder.GetTeamUnitsContaienr(_config.Team);
-            var entity = _unitFactory.Create(teamContainer, transform.position + Vector3.right, _config.Team, _config.UnitToSpawn);
+            var entity = _unitFactory.Create(teamContainer, transform.position + Vector3.right / 2, _config.Team, _config.UnitToSpawn);
             _createdUnits.Add(entity);
             entity.HealthComp.OnDied += HandleOnUnitDied;
             var target = _levelInfoHolder.Waypoints.FirstOrDefault(_ => _.Sender.gameObject == gameObject)?.Target.transform;
