@@ -15,7 +15,7 @@ public class CombatAIComp : MonoBehaviour
     private float _lastAttackTime = float.NegativeInfinity;
     private bool _isInAttackingState;
     private BuildingsHolder _buildingsHolder;
-    
+
     public bool IsInAttackingState => _isInAttackingState;
     public AttackStrategyCompBase AttackStrategyComp => _attackStrategyComp;
 
@@ -83,7 +83,7 @@ public class CombatAIComp : MonoBehaviour
             return false;
         }
 
-        if (_movementComp.TargetTransform == null)
+        if (_movementComp?.TargetTransform == null)
         {
             return false;
         }

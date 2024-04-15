@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _name: MegaBomzh
   _prefab: {fileID: 7676225947957000183, guid: d707de6aef352df4f99008ff65e3a68d, type: 3}
-  _unitType: {fileID: 11400000, guid: c5a5abb39aeeaa546a8b1e26b15ca589, type: 2}
+  _unitType: {fileID: 11400000, guid: b98ff9f869a2afd42b9e593446b42900, type: 2}
   _maxHealth: 15
   _enemyDetecationDistance: 0.5
   _damage: 5

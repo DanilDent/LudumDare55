@@ -13,12 +13,12 @@ MonoBehaviour:
   m_Name: DEV_UnitBerserkEnemy
   m_EditorClassIdentifier: 
   _name: MegaBomzh
-  _prefab: {fileID: 7676225947957000183, guid: d707de6aef352df4f99008ff65e3a68d, type: 3}
-  _unitType: {fileID: 11400000, guid: c5a5abb39aeeaa546a8b1e26b15ca589, type: 2}
+  _prefab: {fileID: 7676225947957000183, guid: b9cf3386f7803234bbde4192d609d770, type: 3}
+  _unitType: {fileID: 11400000, guid: b98ff9f869a2afd42b9e593446b42900, type: 2}
   _maxHealth: 15
   _enemyDetecationDistance: 0.5
   _damage: 5
   _speed: 0.5
   _attackRate: 1
   _attackRange: 1
-  _projectilePrefab: {fileID: 7943582780566996543, guid: a88f8cb174c8e784cb622b655689712c, type: 3}
+  _projectilePrefab: {fileID: 7943582780566996543, guid: 27fa752a959382243a6690f5f5cd6a2b, type: 3}

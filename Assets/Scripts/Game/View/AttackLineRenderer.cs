@@ -2,6 +2,7 @@ using Pathfinding;
 using System.Collections.Generic;
 using UnityEngine;
 
+[DefaultExecutionOrder(11)]
 public class AttackLineRenderer : MonoBehaviour
 {
     [SerializeField] private Seeker _seeker;
@@ -22,7 +23,7 @@ public class AttackLineRenderer : MonoBehaviour
 
     private void Start()
     {
-        var selectedBuildingShower = SelectedBuldingsShower.Instance;
+        var selectedBuildingShower = FindAnyObjectByType<SelectedBuldingsShower>();
         selectedBuildingShower.SelectionChanged += HandleSelectionChange;
     }
 

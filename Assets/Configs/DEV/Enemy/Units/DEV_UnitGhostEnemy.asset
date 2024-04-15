@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: DEV_UnitGhostEnemy
   m_EditorClassIdentifier: 
   _name: Bomzh
-  _prefab: {fileID: 7676225947957000183, guid: dc837f1c404d99748b341f988799cea3, type: 3}
+  _prefab: {fileID: 7676225947957000183, guid: f03e373830fe3084a8703f44747057de, type: 3}
   _unitType: {fileID: 11400000, guid: 0362ef79304103646ab0cefa75e98fe8, type: 2}
   _maxHealth: 10
   _enemyDetecationDistance: 0.5
