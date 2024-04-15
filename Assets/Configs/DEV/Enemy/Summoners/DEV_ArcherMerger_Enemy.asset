@@ -14,9 +14,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   <Membership>k__BackingField: 2
   <Team>k__BackingField: 2
-  <EntityType>k__BackingField: 0
-  <UnitToSpawn>k__BackingField: {fileID: 0}
+  <EntityType>k__BackingField: 1
+  <UnitToSpawn>k__BackingField: {fileID: 11400000, guid: 14d0c407b565a0740bd472c96f1eed04, type: 2}
   <MaxResourceCount>k__BackingField: 5
   <EntitySpawnCountPerSpawn>k__BackingField: 1
   <SpawnCostInResources>k__BackingField: 1
-  <MergeReciptConfigSO>k__BackingField: {fileID: 11400000, guid: 90cc8584ebbaf45488eae8840184e0d2, type: 2}
+  <MergeReciptConfigSO>k__BackingField: {fileID: 11400000, guid: 3f29ce740d1d48040807cdc3517761e7, type: 2}

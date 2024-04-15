@@ -12,5 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cd77e22e2bbbd7d459729ca54d711326, type: 3}
   m_Name: DEV_UnitTypeRanged
   m_EditorClassIdentifier: 
-  Name: Bomzh
+  Name: Archer
   AttackType: 2

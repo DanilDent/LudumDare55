@@ -15,10 +15,10 @@ MonoBehaviour:
   _damageModifiers:
   - Attacker: {fileID: 11400000, guid: 0362ef79304103646ab0cefa75e98fe8, type: 2}
     Defender: {fileID: 11400000, guid: 0362ef79304103646ab0cefa75e98fe8, type: 2}
-    Modifier: 1
+    Modifier: 1.5
   - Attacker: {fileID: 11400000, guid: 3989e2de535608543965fef7e1d2035f, type: 2}
     Defender: {fileID: 11400000, guid: 0362ef79304103646ab0cefa75e98fe8, type: 2}
     Modifier: 1.5
   - Attacker: {fileID: 11400000, guid: b98ff9f869a2afd42b9e593446b42900, type: 2}
     Defender: {fileID: 11400000, guid: 0362ef79304103646ab0cefa75e98fe8, type: 2}
-    Modifier: 3
+    Modifier: 1.5
