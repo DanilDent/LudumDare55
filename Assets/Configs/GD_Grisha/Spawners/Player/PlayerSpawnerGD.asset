@@ -16,8 +16,8 @@ MonoBehaviour:
   <Team>k__BackingField: 1
   <EntityType>k__BackingField: 0
   <UnitToSpawn>k__BackingField: {fileID: 11400000, guid: b16241364ce018549a9584a4920492e9, type: 2}
-  <MaxResourceCount>k__BackingField: 8
+  <MaxResourceCount>k__BackingField: 10
   <EntitySpawnCountPerSpawn>k__BackingField: 1
   <SpawnCostInResources>k__BackingField: 1
   <TimeToSpawn>k__BackingField: 1
-  <SpawnerHealth>k__BackingField: 10
+  <SpawnerHealth>k__BackingField: 50

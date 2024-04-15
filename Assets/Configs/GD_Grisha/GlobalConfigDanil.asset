@@ -13,12 +13,12 @@ MonoBehaviour:
   m_Name: GlobalConfigDanil
   m_EditorClassIdentifier: 
   _damageModifiers:
-  - Attacker: {fileID: 11400000, guid: 0362ef79304103646ab0cefa75e98fe8, type: 2}
-    Defender: {fileID: 11400000, guid: 0362ef79304103646ab0cefa75e98fe8, type: 2}
-    Modifier: 1
-  - Attacker: {fileID: 11400000, guid: 3989e2de535608543965fef7e1d2035f, type: 2}
-    Defender: {fileID: 11400000, guid: 0362ef79304103646ab0cefa75e98fe8, type: 2}
+  - Attacker: {fileID: 11400000, guid: 63836be75c3e67546873e71108625328, type: 2}
+    Defender: {fileID: 11400000, guid: c5a5abb39aeeaa546a8b1e26b15ca589, type: 2}
     Modifier: 1.5
-  - Attacker: {fileID: 11400000, guid: b98ff9f869a2afd42b9e593446b42900, type: 2}
-    Defender: {fileID: 11400000, guid: 0362ef79304103646ab0cefa75e98fe8, type: 2}
-    Modifier: 3
+  - Attacker: {fileID: 11400000, guid: 0680aff2a1affd4498b1ed8927b69dc9, type: 2}
+    Defender: {fileID: 11400000, guid: 63836be75c3e67546873e71108625328, type: 2}
+    Modifier: 1.5
+  - Attacker: {fileID: 11400000, guid: c5a5abb39aeeaa546a8b1e26b15ca589, type: 2}
+    Defender: {fileID: 11400000, guid: 63836be75c3e67546873e71108625328, type: 2}
+    Modifier: 1.5
