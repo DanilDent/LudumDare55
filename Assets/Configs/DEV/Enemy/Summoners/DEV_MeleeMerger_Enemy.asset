@@ -19,4 +19,4 @@ MonoBehaviour:
   <MaxResourceCount>k__BackingField: 5
   <EntitySpawnCountPerSpawn>k__BackingField: 1
   <SpawnCostInResources>k__BackingField: 1
-  <MergeReciptConfigSO>k__BackingField: {fileID: 11400000, guid: 40a8f7a7dd51f164db07a7e7cdf5eb1a, type: 2}
+  <MergeReciptConfigSO>k__BackingField: {fileID: 11400000, guid: 9a5d321a00d057e44912734add141bf5, type: 2}

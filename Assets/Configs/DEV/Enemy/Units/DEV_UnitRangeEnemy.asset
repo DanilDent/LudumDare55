@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: DEV_UnitRangeEnemy
   m_EditorClassIdentifier: 
   _name: RangedUnit
-  _prefab: {fileID: 7676225947957000183, guid: 172d18366536dd24c85dcf93764228a8, type: 3}
+  _prefab: {fileID: 7676225947957000183, guid: bc87a0c5601772143a6accdaf0f1c1ae, type: 3}
   _unitType: {fileID: 11400000, guid: 3989e2de535608543965fef7e1d2035f, type: 2}
   _maxHealth: 10
   _enemyDetecationDistance: 0.5
@@ -21,4 +21,4 @@ MonoBehaviour:
   _speed: 0.3
   _attackRate: 1
   _attackRange: 10
-  _projectilePrefab: {fileID: 7943582780566996543, guid: a88f8cb174c8e784cb622b655689712c, type: 3}
+  _projectilePrefab: {fileID: 7943582780566996543, guid: 27fa752a959382243a6690f5f5cd6a2b, type: 3}
