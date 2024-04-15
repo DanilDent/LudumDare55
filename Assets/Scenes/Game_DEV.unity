@@ -333,10 +333,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _checkBoxForValidate: 0
   spawners:
-  - {fileID: 784505730}
-  - {fileID: 784505729}
-  - {fileID: 784505728}
   - {fileID: 784505726}
+  - {fileID: 784505728}
+  - {fileID: 784505729}
+  - {fileID: 784505730}
 --- !u!1 &477702965
 GameObject:
   m_ObjectHideFlags: 0
