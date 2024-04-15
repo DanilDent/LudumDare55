@@ -173,7 +173,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0, g: 0, b: 0, a: 0.6392157}
+  m_Color: {r: 0, g: 0, b: 0, a: 0.91764706}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -323,9 +323,36 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Press any button to continue
+  m_text: 'Welcome, young catamancer!
 
-    (except for the power button)'
+    
+
+    You summon souls from the city
+    and then guide them. Catch with a paw a mouse from a left side (Left Click) on
+    your buildings to select the departure point, then again to select the destination.
+
+    Catch
+    with a paw a mouse from a left side (Left Click) on the enemy building to see
+    where they are sending troops!
+
+    
+
+    From the city, souls can be sent
+    into boxes; passing through them, souls acquire bodies, along with a Class. Archers
+    fight better against shieldbearers, shieldbearers fight better against berserkers,
+    and berserkers fight better against archers.
+
+    
+
+    After the boxes, fighters
+    can be sent to attack enemy cities! Your goal is to destroy all enemy cities
+    without losing all of yours.
+
+
+    (press any button to continue)
+
+    (except
+    for the power button)'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2100000, guid: 79459efec17a4d00a321bdcc27bbc385, type: 2}
@@ -352,12 +379,12 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 72
+  m_fontSize: 40
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1
   m_fontSizeMin: 18
-  m_fontSizeMax: 72
+  m_fontSizeMax: 40
   m_fontStyle: 1
   m_HorizontalAlignment: 2
   m_VerticalAlignment: 512
@@ -388,7 +415,7 @@ MonoBehaviour:
   m_VertexBufferAutoSizeReduction: 0
   m_useMaxVisibleDescender: 1
   m_pageToDisplay: 1
-  m_margin: {x: 0, y: 0, z: 0, w: 0}
+  m_margin: {x: 100, y: 20, z: 100, w: 20}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_hasFontAssetChanged: 0

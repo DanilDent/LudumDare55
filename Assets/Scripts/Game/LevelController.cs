@@ -1,16 +1,20 @@
 ﻿using Misc;
+using TMPro;
 using UnityEngine;
 
-public class LevelController : MonoBehaviour
+public class LevelController : MonoSingleton<LevelController>
 {
     public Transform LevelContainer;
-
+    public TextMeshProUGUI LvlText;
     public ReactiveProperty<int> Speed = new ReactiveProperty<int>();
+
+    public AstarPath pathfinder;
 
     [SerializeField] private Spawner[] spawners;
 
     private void Start()
     {
+        pathfinder.Scan();
         spawners = FindObjectsOfType<Spawner>();
         foreach (var spawner in spawners)
         {
@@ -18,19 +22,22 @@ public class LevelController : MonoBehaviour
         }
     }
 
-    private void Awake()
+    protected override void Awake()
     {
+        base.Awake();
         var gameController = GameController.Instance;
         var lvlPfab = gameController.CurrentLvlPrefab;
+        LvlText.text = $"{(gameController.CurrenLevel + 1).ToString()}/{gameController.LevelsHolder.Levels.Length}";
         var lvlInstance = Instantiate(lvlPfab, LevelContainer);
 
         Speed.AddListener(OnSpeedChanged);
         SetSpeed(0);
     }
 
-    private void OnDestroy()
+    protected override void OnDestroy()
     {
         Speed.RemoveListener(OnSpeedChanged);
+        base.OnDestroy();
     }
 
     public void Pause(bool pause)

@@ -1,6 +1,7 @@
 ﻿using Misc;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public sealed class BuildingsHolder : MonoSingleton<BuildingsHolder>
@@ -12,10 +13,13 @@ public sealed class BuildingsHolder : MonoSingleton<BuildingsHolder>
     public event Action<IBuilding> OnBuildingClick;
     public event Action<IBuilding> OnBuldingDead;
 
+    private GameController _gameController;
+
     protected override void Awake()
     {
         base.Awake();
 
+        _gameController = GameController.Instance;
         IBuilding[] buldings = GetComponentsInChildren<IBuilding>();
         foreach (IBuilding bulding in buldings)
         {
@@ -60,6 +64,15 @@ public sealed class BuildingsHolder : MonoSingleton<BuildingsHolder>
         buildingGO.gameObject.SetActive(false);
         building?.InvokeDead(building);
         Destroy(buildingGO, 5f);
+
+        if (_buildings.All(_ => _.Team == TeamEnum.Player))
+        {
+            LevelResultsController.Instance.ShowWin();
+        }
+        else
+        {
+            LevelResultsController.Instance.ShowLose();
+        }
     }
 
     public IBuilding GetNearestBuldingByPosition(IBuilding searchFrom)

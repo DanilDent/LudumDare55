@@ -126,16 +126,16 @@ public class Spawner : MonoBehaviour, IDamageble, IBuilding, IPointerClickHandle
             var teamContainer = _globalConfigHolder.GetTeamUnitsContaienr(_config.Team);
             var entity = _unitFactory.Create(teamContainer, transform.position + Vector3.right, _config.Team, _config.UnitToSpawn);
             _createdUnits.Add(entity);
-            entity.HealthComp.OnDied += HandleOnDied;
+            entity.HealthComp.OnDied += HandleOnUnitDied;
             var target = _levelInfoHolder.Waypoints.FirstOrDefault(_ => _.Sender.gameObject == gameObject)?.Target.transform;
 
             EntitySpawned?.Invoke(entity.gameObject);
         }
     }
 
-    private void HandleOnDied(HealthComp comp)
+    private void HandleOnUnitDied(HealthComp comp)
     {
-        comp.OnDied -= HandleOnDied;
+        comp.OnDied -= HandleOnUnitDied;
         _createdUnits.Remove(comp.UnitComp);
     }
 
