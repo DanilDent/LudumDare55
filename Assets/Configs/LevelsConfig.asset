@@ -13,5 +13,5 @@ MonoBehaviour:
   m_Name: LevelsConfig
   m_EditorClassIdentifier: 
   _levels:
-  - {fileID: 3210328689273083243, guid: bc6d5d0d98e849448b981c81facee363, type: 3}
   - {fileID: 1127147025499761268, guid: 87f0e1b597e44b54c8c1e03dd08c839a, type: 3}
+  - {fileID: 3210328689273083243, guid: bc6d5d0d98e849448b981c81facee363, type: 3}

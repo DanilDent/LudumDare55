@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   RecipeInfo:
     Input:
-    - _key: {fileID: 11400000, guid: 14d0c407b565a0740bd472c96f1eed04, type: 2}
+    - _key: {fileID: 11400000, guid: b16241364ce018549a9584a4920492e9, type: 2}
       _value: 1
     Output:
       _key: {fileID: 11400000, guid: 0cddfd038f6aa51449398dc9e0feac80, type: 2}

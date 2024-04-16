@@ -65,7 +65,8 @@ public sealed class BuildingsHolder : MonoSingleton<BuildingsHolder>
         building?.InvokeDead(building);
         Destroy(buildingGO, 5f);
 
-        if (_buildings.All(_ => _.Team == TeamEnum.Player))
+        var spawners = _buildings.Where(_ => _ is Spawner).ToList();
+        if (spawners.All(_ => _.Team == TeamEnum.Player))
         {
             LevelResultsController.Instance.ShowWin();
         }

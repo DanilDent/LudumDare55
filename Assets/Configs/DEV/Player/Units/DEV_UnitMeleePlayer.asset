@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: DEV_UnitMeleePlayer
   m_EditorClassIdentifier: 
   _name: Bomzh
-  _prefab: {fileID: 7676225947957000183, guid: dc837f1c404d99748b341f988799cea3, type: 3}
+  _prefab: {fileID: 7676225947957000183, guid: fe5802c863f0d5a438d015ed0492f6da, type: 3}
   _unitType: {fileID: 11400000, guid: 0362ef79304103646ab0cefa75e98fe8, type: 2}
   _maxHealth: 20
   _enemyDetecationDistance: 0.5
